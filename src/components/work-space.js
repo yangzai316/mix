@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
-    createElement,
+    createRElement,
+    formatStyle
 } from './../utils'
 /**
- * 
  * 布局中间区域，工作区，拖拽的元素被放置的区域
  */
 const WorkSpace = ({ tree, setContainer }) => {
+    // 拖拽 设置
     const dragOver = (e) => {
         e.preventDefault();
     }
@@ -15,17 +16,21 @@ const WorkSpace = ({ tree, setContainer }) => {
         setContainer(e.target.dataset.id);
     };
 
-    useEffect(() => {
-        const content = createElement(tree);
-        document.getElementById('box').replaceChildren();
-        document.getElementById('box').appendChild(content);
-    }, [tree])
+    // 生成 reactElement 元素
+    const childElements = useMemo(() => {
+        return createRElement(tree?.children || [])
+    }, [tree]);
+
+
     return (
         <div id="box" className="work-space" onDragOver={dragOver} onDrop={drop}>
-
+            {
+                React.createElement(tree?.name, { style: formatStyle(tree?.styles), key: tree?.id, ['data-id']: tree?.id }, childElements)
+            }
         </div>
     )
 };
+
 
 
 

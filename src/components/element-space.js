@@ -8,7 +8,7 @@ import ELEMENTS from '../data/ELEMENT';
 const ElementSpace = ({ setTarget }) => {
 
     const dragStart = (e) => {
-        const _t = ELEMENTS[e?.target?.dataset?.key];
+        const _t = JSON.parse(JSON.stringify(ELEMENTS[e?.target?.dataset?.key]));
         _t.id = +new Date();
         setTarget(_t);
     }

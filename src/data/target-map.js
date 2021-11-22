@@ -2,9 +2,8 @@
  * 所有被拖拽的元素的映射表
  */
 
-const targetMap = {
+let targetMap = {};
 
-};
 
 export default targetMap;
 

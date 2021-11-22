@@ -1,23 +1,41 @@
 
+import React from "react";
 
-export const createElement = (tree) => {
-    const container = document.createElement(tree.name);
-    container.dataset.id = tree.id;
-    updateAttribute(container, tree.style);
+/**
+ * 
+ * @param {*} children 
+ * @returns 创建reactElement 内容
+ */
 
-    const fragment = document.createDocumentFragment();
-    (tree?.children || []).forEach(item => {
-        const ele = document.createElement(item.name);
-        item.content && (ele.innerHTML = item.content);
-        ele.dataset.id = item.id;
-        updateAttribute(ele, item.style)
-        fragment.appendChild(ele);
+export const createRElement = (children) => {
+
+    return children.map(item => {
+        let c = null;
+        if (item.content) {
+            c = item.content
+        } else if (item?.children?.length) {
+            c = createRElement(item?.children);
+        };
+        return React.createElement(item?.name,
+            {
+                style: formatStyle(item?.styles || []),
+                ...item.attribute,
+                key: item.id,
+                ['data-id']: item.id
+            }, c)
     });
-    container.appendChild(fragment);
-    return container;
 };
-export const updateAttribute = (ele, attrs) => {
-    for (const key in attrs) {
-        ele.style[key] = attrs[key];
-    }
-}
+
+
+
+/**
+ * 格式化 样式属性配置 参数
+ */
+export const formatStyle = (data) => {
+    const res = {};
+    data.forEach(item => {
+        res[item.key] = item.value
+    });
+    console.log(res);
+    return res;
+};

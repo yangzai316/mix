@@ -3,14 +3,38 @@
  * 树形
  * 默认只存在 root 容器
  */
-const targetTree = {
+let targetTree = {
     name: 'div',
     id: 'root',
     text: '容器',
-    style: {
-        width: '100%',
-        height: '100%',
-    },
+    styles: [
+        {
+            title: "宽度",
+            type: "input",
+            key: "width",
+            value: "100%"
+        },
+        {
+            title: "高度",
+            type: "input",
+            key: "height",
+            value: "100%"
+        },
+        {
+            title: "布局方式",
+            type: "radio",
+            key: 'display',
+            value: "block",
+
+        },
+        {
+            title: "主轴方向",
+            type: "radio",
+            key: 'flexDirection',
+            value: "row",
+
+        },
+    ],
     children: []
 };
 
