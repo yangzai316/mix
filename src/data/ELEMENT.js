@@ -39,7 +39,7 @@ const ELEMENTS = {
         value: 'nowrap',
       },
       {
-        title: '对齐方式',
+        title: '主轴对齐方式',
         type: 'radio',
         key: 'justifyContent',
         value: 'flex-start',
@@ -57,14 +57,20 @@ const ELEMENTS = {
     attribute: {
       src: '',
     },
-    style: {
-      width: '100px',
-      height: '100px',
-      marginTop: '',
-      marginBottom: '',
-      marginLeft: '',
-      marginRight: '',
-    },
+    styles: [
+      {
+        title: '宽度',
+        type: 'input',
+        key: 'width',
+        value: '100px',
+      },
+      {
+        title: '高度',
+        type: 'input',
+        key: 'height',
+        value: '100px',
+      },
+    ],
   },
 };
 

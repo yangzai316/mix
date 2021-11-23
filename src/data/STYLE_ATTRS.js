@@ -81,6 +81,33 @@ const styleAttrs = {
       key: 'space-around',
     },
   ],
+  alignItems: [
+    {
+      title: '起点对齐',
+      name: '\ue609',
+      key: 'flex-start',
+    },
+    {
+      title: '终点对齐',
+      name: '\ue606',
+      key: 'flex-end',
+    },
+    {
+      title: '中点对齐',
+      name: '\ue7c0',
+      key: 'center',
+    },
+    {
+      title: '充满',
+      name: '\ue607',
+      key: 'stretch',
+    },
+    {
+      title: '基线对齐',
+      name: '\ue612',
+      key: 'baseline',
+    },
+  ],
 };
 
 export default styleAttrs;

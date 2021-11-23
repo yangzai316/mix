@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './app.less';
 import { Layout } from 'antd';
 import ElementSpace from './components/element-space';
@@ -9,7 +9,7 @@ import targetTree from './data/target-tree';
 import { message } from 'antd';
 
 const { Header, Sider, Content } = Layout;
-targetMap.root = targetTree;
+
 const App = () => {
   // 工作区 树形数据
   const [tree, setTree] = useState(targetTree);
@@ -18,12 +18,12 @@ const App = () => {
 
   // 当前被拖拽元素
   let currentTarget = null;
-  const setTargetCb = (target) => {
+  const setTargetCb = useCallback((target) => {
     targetMap[target.id] = target;
     currentTarget = target;
-  };
+  }, []);
   // 被拖拽元素释放的元素容器
-  const setContainer = (id) => {
+  const setContainer = useCallback((id) => {
     if (!id) return message.error('这不是一个有效的视图容器');
     if (id === 'root') {
       targetTree.children.push(currentTarget);
@@ -34,10 +34,10 @@ const App = () => {
     }
     setTarget(currentTarget);
     setTree(JSON.parse(JSON.stringify(targetTree)));
-  };
+  }, []);
 
   // 属性被修改的回调
-  const configChange = (id, type, key, value) => {
+  const configChange = useCallback((id, type, key, value) => {
     const i = targetMap[id][type].findIndex((item) => item.key === key);
     if (i < 0) return;
 
@@ -45,7 +45,7 @@ const App = () => {
 
     setTarget(targetMap[id]);
     setTree(JSON.parse(JSON.stringify(targetTree)));
-  };
+  }, []);
 
   return (
     <Layout style={{ height: '100%' }}>

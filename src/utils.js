@@ -2,17 +2,36 @@ import React from 'react';
 
 /**
  *
- * @param {*} children
+ * @param {*} tree
  * @returns 创建reactElement 内容
  */
+export const createElement = (tree) => {
+  const childs = createChildElement(tree?.children || []);
 
-export const createRElement = (children) => {
+  return React.createElement(
+    tree?.name,
+    {
+      style: formatStyle(tree?.styles),
+      key: tree?.id,
+      ['data-id']: tree?.id,
+    },
+    childs
+  );
+};
+
+/**
+ *
+ * @param {*} children
+ * @returns 循环递归 处理reactElement 子元素
+ */
+
+const createChildElement = (children) => {
   return children.map((item) => {
     let c = null;
     if (item.content) {
       c = item.content;
     } else if (item?.children?.length) {
-      c = createRElement(item?.children);
+      c = createChildElement(item?.children);
     }
     return React.createElement(
       item?.name,
