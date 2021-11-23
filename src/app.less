@@ -20,19 +20,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 .element-space {
-  padding: 10px 0;
   display: flex;
-  flex-wrap: wrap;
-  .item {
-    line-height: 92px;
-    text-align: center;
-    border: 1px dotted #ddd;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 92px;
-    margin: 4px;
-    &:hover {
-      border: 1px dashed #fff;
+  background-color: #000;
+  height: 100%;
+  .element {
+    flex-grow: 1;
+    .item {
+      line-height: 74px;
+      text-align: center;
+      border: 1px dotted #ddd;
+      margin: 10px;
+      &:hover {
+        border: 1px dashed #fff;
+      }
     }
   }
 }

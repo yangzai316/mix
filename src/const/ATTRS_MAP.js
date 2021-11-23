@@ -1,8 +1,4 @@
-/**
- * 属性集合
- */
-
-const styleAttrs = {
+const ATTRS = {
   display: [
     {
       title: '块级布局',
@@ -110,4 +106,4 @@ const styleAttrs = {
   ],
 };
 
-export default styleAttrs;
+export default ATTRS;

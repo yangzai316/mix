@@ -7,44 +7,18 @@ const ELEMENTS = {
   div: {
     name: 'div',
     text: '容器',
-    styles: [
-      {
+    styles: {
+      width: {
         title: '宽度',
         type: 'input',
-        key: 'width',
-        value: '100px',
+        value: '200px',
       },
-      {
+      height: {
         title: '高度',
         type: 'input',
-        key: 'height',
         value: '40px',
       },
-      {
-        title: '布局方式',
-        type: 'radio',
-        key: 'display',
-        value: 'block',
-      },
-      {
-        title: '主轴方向',
-        type: 'radio',
-        key: 'flexDirection',
-        value: 'row',
-      },
-      {
-        title: '换行',
-        type: 'radio',
-        key: 'flexWrap',
-        value: 'nowrap',
-      },
-      {
-        title: '主轴对齐方式',
-        type: 'radio',
-        key: 'justifyContent',
-        value: 'flex-start',
-      },
-    ],
+    },
   },
   span: {
     name: 'span',
@@ -57,20 +31,6 @@ const ELEMENTS = {
     attribute: {
       src: '',
     },
-    styles: [
-      {
-        title: '宽度',
-        type: 'input',
-        key: 'width',
-        value: '100px',
-      },
-      {
-        title: '高度',
-        type: 'input',
-        key: 'height',
-        value: '100px',
-      },
-    ],
   },
 };
 

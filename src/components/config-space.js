@@ -1,74 +1,67 @@
 import React, { useMemo } from 'react';
-import { Form, Input, Divider, Radio, Tooltip, Tabs } from 'antd';
-import styleAttrs from '../data/STYLE_ATTRS';
+import { Form, Input, Alert, Radio, Tooltip, Tabs } from 'antd';
+import ATTRS from '../const/ATTRS_MAP';
 
 const ConfigSpace = ({ target = {}, configChange }) => {
   // 结构数据
-  const { styles = [], attribute = null, content } = target;
+  const { styles, attribute, content } = target;
 
   // 修改配置参数的回调
   const change = (e, key, type) => {
     configChange(target.id, type, key, e.target.value);
   };
 
-  // 判断当前属性中 display=？flex
-  const isFlex = styles.some(
-    (item) => item.key === 'display' && item.value === 'flex'
-  );
-
   return (
     <>
+      <h4>{`当前聚焦元素：${target.text}-${target.name}-${target.id}`}</h4>
       <Tabs type="card">
-        {styles?.length > 0 && (
+        {styles && (
           <Tabs.TabPane tab="样式设置" key="1">
             <Form
               labelCol={{ span: 8 }}
               wrapperCol={{ span: 16 }}
               autoComplete="off"
             >
-              {styles.map((item) => {
-                if (item.type === 'input') {
+              {Object.keys(styles).map((key) => {
+                if (styles[key].type === 'input') {
                   return (
-                    <Form.Item key={item.key} label={item.title}>
+                    <Form.Item key={key} label={styles[key].title}>
                       <Input
-                        value={item.value}
+                        value={styles[key].value}
                         onChange={(e) => {
-                          change(e, item.key, 'styles');
+                          change(e, key, 'styles');
                         }}
                       />
                     </Form.Item>
                   );
-                } else if (item.type === 'radio') {
+                } else if (styles[key].type === 'radio') {
                   return (
-                    (item.depend !== 'display=flex' ||
-                      (item.depend === 'display=flex' && isFlex)) && (
-                      <Form.Item key={item.key} label={item.title}>
-                        {
-                          <Radio.Group
-                            value={item.value}
-                            onChange={(e) => {
-                              change(e, item.key, 'styles');
-                            }}
-                          >
-                            {styleAttrs[item.key].map((o) => {
-                              return (
-                                <Tooltip
-                                  key={o.key}
-                                  placement="top"
-                                  title={o.title}
-                                >
-                                  <Radio.Button value={o.key}>
-                                    <i className="iconfont">{`${
-                                      o.name || o.title
-                                    }`}</i>
-                                  </Radio.Button>
-                                </Tooltip>
-                              );
-                            })}
-                          </Radio.Group>
-                        }
-                      </Form.Item>
-                    )
+                    <Form.Item key={key} label={styles[key].title}>
+                      {
+                        <Radio.Group
+                          value={styles[key].value}
+                          onChange={(e) => {
+                            change(e, key, 'styles');
+                          }}
+                        >
+                          {ATTRS[key].map((o) => {
+                            return (
+                              <Tooltip
+                                key={o.key}
+                                placement="top"
+                                title={o.title}
+                              >
+                                <Radio.Button value={o.key}>
+                                  <i className="iconfont">{`${
+                                    o.name || o.title
+                                  }`}</i>
+                                </Radio.Button>
+                              </Tooltip>
+                            );
+                          })}
+                        </Radio.Group>
+                      }
+                    </Form.Item>
                   );
                 }
               })}
