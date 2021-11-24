@@ -73,21 +73,23 @@ const App = () => {
     setTarget(targetMap[id]);
     setTree(JSON.parse(JSON.stringify(targetTree)));
   }, []);
+
   // 移除元素
-  const removeComponent = (id) => {
+  const removeComponent = useCallback((id) => {
     delete targetMap[id];
     deleteComponentById(targetTree, id);
     setTree(JSON.parse(JSON.stringify(targetTree)));
-  };
+  });
   // 聚焦config 配置于当前元素，
   const focusCurrentComponent = useCallback((id) => {
     setTarget(targetMap[id]);
   }, []);
+
   // menu 改变
   const [menuKey, setMenuKey] = useState('1');
-  const onMenuSelect = (val) => {
+  const onMenuSelect = useCallback((val) => {
     setMenuKey(val.key);
-  };
+  });
   return (
     <Layout style={{ height: '100%' }}>
       <Header>
