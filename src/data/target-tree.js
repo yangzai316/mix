@@ -67,6 +67,7 @@ let targetTree = {
     },
   },
   backgroundStyle: {},
+  borderStyle: {},
   children: [],
 };
 

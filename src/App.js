@@ -13,7 +13,7 @@ import TopNav from './components/top-nav';
 
 import {
   dealFlexRelateAttr,
-  dealBackgroundAttr,
+  dealSpecificProperty,
   deleteComponentById,
 } from './utils';
 
@@ -66,11 +66,10 @@ const App = () => {
     setTree(JSON.parse(JSON.stringify(targetTree)));
   }, []);
 
-  // 特殊样式逻辑处理
+  // 特殊样式逻辑处理 （background / border）
   const editComponentSpecificProperty = useCallback((id, type, value) => {
-    if (type === 'backgroundStyle') {
-      targetMap[id][type] = dealBackgroundAttr(targetMap[id][type], value);
-    }
+    targetMap[id][type] = dealSpecificProperty(value);
+
     setTarget(targetMap[id]);
     setTree(JSON.parse(JSON.stringify(targetTree)));
   }, []);

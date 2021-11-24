@@ -54,6 +54,35 @@ const SUB_ATTRS = {
       value: '',
     },
   },
+  borderSingle: {
+    borderTop: {
+      title: '上边框',
+      type: 'Input',
+      value: '',
+    },
+    borderBottom: {
+      title: '下边框',
+      type: 'Input',
+      value: '',
+    },
+    borderLeft: {
+      title: '左边框',
+      type: 'Input',
+      value: '',
+    },
+    borderRight: {
+      title: '右边框',
+      type: 'Input',
+      value: '',
+    },
+  },
+  borderRound: {
+    border: {
+      title: '边框',
+      type: 'Input',
+      value: '',
+    },
+  },
 };
 
 export default SUB_ATTRS;

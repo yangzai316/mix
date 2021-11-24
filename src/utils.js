@@ -18,7 +18,11 @@ export const createElement = (tree, focusCurrentComponent) => {
   return React.createElement(
     tree?.name,
     {
-      style: updateStyle(tree?.baseStyle, tree?.backgroundStyle),
+      style: updateStyle(
+        tree?.baseStyle,
+        tree?.backgroundStyle,
+        tree?.borderStyle
+      ),
       key: tree?.id,
       ['data-id']: tree?.id,
       onClick: (e) => {
@@ -47,7 +51,11 @@ const createChildElement = (children, method) => {
     return React.createElement(
       item?.name,
       {
-        style: updateStyle(item?.baseStyle, item?.backgroundStyle),
+        style: updateStyle(
+          item?.baseStyle,
+          item?.backgroundStyle,
+          item?.borderStyle
+        ),
         ...updateAttribute(item.attribute),
         key: item.id,
         ['data-id']: item.id,
@@ -64,9 +72,13 @@ const createChildElement = (children, method) => {
 /**
  * 样式配置，格式化为 {} 形式
  */
-export const updateStyle = (baseStyle = {}, backgroundStyle = {}) => {
+export const updateStyle = (
+  baseStyle = {},
+  backgroundStyle = {},
+  borderStyle = {}
+) => {
   const res = {};
-  const data = { ...baseStyle, ...backgroundStyle };
+  const data = { ...baseStyle, ...backgroundStyle, ...borderStyle };
   for (const key in data) {
     if (key === 'backgroundImage') {
       res[key] = `url(${data[key].value})`;
@@ -112,19 +124,12 @@ export const dealFlexRelateAttr = (target, key, value) => {
  *
  * background 的连带属性，单独处理
  */
-export const dealBackgroundAttr = (target, value) => {
-  if (value === 'color') {
-    // backgroundcolor
-    target = SUB_ATTRS.backgroundColor;
-  } else if (value === 'image') {
-    // backgroundimage
-    target = SUB_ATTRS.backgroundImage;
-  } else {
-    target = {};
+export const dealSpecificProperty = (value) => {
+  if (value) {
+    return SUB_ATTRS[value];
   }
-  return target;
+  return {};
 };
-
 /**
  * 通过 id 寻找对应的元素
  */
