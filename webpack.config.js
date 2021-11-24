@@ -1,9 +1,10 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path')
-const { getThemeVariables } = require('antd/dist/theme')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const { getThemeVariables } = require('antd/dist/theme');
 
 module.exports = {
   mode: 'development',
+  devtool: 'eval-cheap-source-map',
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -54,4 +55,4 @@ module.exports = {
   devServer: {
     static: './dist',
   },
-}
+};

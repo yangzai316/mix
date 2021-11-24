@@ -10,12 +10,12 @@ const ELEMENTS = {
     styles: {
       width: {
         title: '宽度',
-        type: 'input',
+        type: 'Input',
         value: '200px',
       },
       height: {
         title: '高度',
-        type: 'input',
+        type: 'Input',
         value: '40px',
       },
     },
@@ -28,8 +28,24 @@ const ELEMENTS = {
   img: {
     name: 'img',
     text: '图片',
+    styles: {
+      width: {
+        title: '宽度',
+        type: 'Input',
+        value: '100px',
+      },
+      height: {
+        title: '高度',
+        type: 'Input',
+        value: '100px',
+      },
+    },
     attribute: {
-      src: '',
+      src: {
+        title: '图片地址',
+        type: 'Input',
+        value: '',
+      },
     },
   },
 };

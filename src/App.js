@@ -1,33 +1,20 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+
+import { Layout, message } from 'antd';
+const { Header, Sider, Content } = Layout;
 import './app.less';
-import { Layout } from 'antd';
+
 import ElementSpace from './components/element-space';
 import WorkSpace from './components/work-space';
 import ConfigSpace from './components/config-space';
 import MenuLeft from './components/menu-left';
 import TreeSpace from './components/tree-space';
+import TopNav from './components/top-nav';
+
+import { dealFlexRelateAttr, deleteComponentById } from './utils';
 
 import targetMap from './data/target-map';
 import targetTree from './data/target-tree';
-import { message } from 'antd';
-import SUB_ATTRS from './const/SUB_ATTRS_LIST';
-const { Header, Sider, Content } = Layout;
-
-const de = (target, key, value) => {
-  if (key === 'display') {
-    if (value === 'flex') {
-      target = {
-        ...target,
-        ...SUB_ATTRS.flexContainer,
-      };
-    } else {
-      for (const key in SUB_ATTRS.flexContainer) {
-        delete target[key];
-      }
-    }
-  }
-  return target;
-};
 
 const App = () => {
   // 工作区 树形数据
@@ -56,16 +43,21 @@ const App = () => {
   }, []);
 
   // 属性被修改的回调
-  const configChange = useCallback((id, type, key, value) => {
+  const editComponent = useCallback((id, type, key, value) => {
     const attr = targetMap[id][type][key];
     attr.value = value;
-
-    targetMap[id][type] = de(targetMap[id][type], key, value);
+    if (key === 'display')
+      targetMap[id][type] = dealFlexRelateAttr(targetMap[id][type], key, value);
 
     setTarget(targetMap[id]);
     setTree(JSON.parse(JSON.stringify(targetTree)));
   }, []);
-
+  // 移除元素
+  const removeComponent = (id) => {
+    delete targetMap[id];
+    deleteComponentById(targetTree, id);
+    setTree(JSON.parse(JSON.stringify(targetTree)));
+  };
   // 聚焦config 配置于当前元素，
   const focusCurrentComponent = useCallback((id) => {
     setTarget(targetMap[id]);
@@ -77,7 +69,9 @@ const App = () => {
   };
   return (
     <Layout style={{ height: '100%' }}>
-      <Header> </Header>
+      <Header>
+        <TopNav />
+      </Header>
       <Layout>
         <MenuLeft onMenuSelect={onMenuSelect} />
         <Sider style={{ backgroundColor: '#000' }}>
@@ -97,7 +91,8 @@ const App = () => {
         <Sider width="300" style={{ padding: '10px', backgroundColor: '#000' }}>
           <ConfigSpace
             target={target}
-            configChange={configChange}
+            editComponent={editComponent}
+            removeComponent={removeComponent}
           ></ConfigSpace>
         </Sider>
       </Layout>

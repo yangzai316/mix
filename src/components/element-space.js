@@ -1,5 +1,5 @@
 import React from 'react';
-import ELEMENTS from '../data/ELEMENT';
+import ELEMENTS from './../const/ELEMENT_LIST';
 
 /**
  *

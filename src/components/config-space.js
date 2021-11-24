@@ -1,19 +1,28 @@
 import React, { useMemo } from 'react';
-import { Form, Input, Alert, Radio, Tooltip, Tabs } from 'antd';
-import ATTRS from '../const/ATTRS_MAP';
+import { Form, Input, InputNumber, Radio, Tooltip, Tabs, Button } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 
-const ConfigSpace = ({ target = {}, configChange }) => {
+import ATTRS from '../const/ATTRS_MAP';
+import BoxModel from './../components/box-model';
+
+const ConfigSpace = ({ target = {}, editComponent, removeComponent }) => {
   // 结构数据
   const { styles, attribute, content } = target;
 
   // 修改配置参数的回调
   const change = (e, key, type) => {
-    configChange(target.id, type, key, e.target.value);
+    editComponent(target.id, type, key, e.target.value);
   };
-
+  const remove = () => {
+    removeComponent(target.id);
+  };
   return (
     <>
-      <h4>{`当前聚焦元素：${target.text}-${target.name}-${target.id}`}</h4>
+      <div className="config-top-title">
+        <h4>{`当前聚焦元素：${target.text}-${target.name}-${target.id}`}</h4>
+        {target.id !== 'root' && <DeleteOutlined onClick={remove} />}
+      </div>
+
       <Tabs type="card">
         {styles && (
           <Tabs.TabPane tab="样式设置" key="1">
@@ -23,18 +32,7 @@ const ConfigSpace = ({ target = {}, configChange }) => {
               autoComplete="off"
             >
               {Object.keys(styles).map((key) => {
-                if (styles[key].type === 'input') {
-                  return (
-                    <Form.Item key={key} label={styles[key].title}>
-                      <Input
-                        value={styles[key].value}
-                        onChange={(e) => {
-                          change(e, key, 'styles');
-                        }}
-                      />
-                    </Form.Item>
-                  );
-                } else if (styles[key].type === 'radio') {
+                if (styles[key].type === 'radio') {
                   return (
                     <Form.Item key={key} label={styles[key].title}>
                       {
@@ -63,6 +61,28 @@ const ConfigSpace = ({ target = {}, configChange }) => {
                       }
                     </Form.Item>
                   );
+                } else if (styles[key].type === 'Input') {
+                  return (
+                    <Form.Item key={key} label={styles[key].title}>
+                      <Input
+                        value={styles[key].value}
+                        onChange={(e) => {
+                          change(e, key, 'styles');
+                        }}
+                      />
+                    </Form.Item>
+                  );
+                } else if (styles[key].type === 'InputNumber') {
+                  return (
+                    <Form.Item key={key} label={styles[key].title}>
+                      <InputNumber
+                        value={styles[key].value}
+                        onChange={(e) => {
+                          change(e, key, 'styles');
+                        }}
+                      />
+                    </Form.Item>
+                  );
                 }
               })}
             </Form>
@@ -75,11 +95,11 @@ const ConfigSpace = ({ target = {}, configChange }) => {
               wrapperCol={{ span: 16 }}
               autoComplete="off"
             >
-              {Object.keys(attribute).map((key, i) => {
+              {Object.keys(attribute).map((key) => {
                 return (
-                  <Form.Item key={i} label={`${key}`}>
+                  <Form.Item key={key} label={`${attribute[key].title}`}>
                     <Input
-                      value={`${attribute[key]}`}
+                      value={`${attribute[key].value}`}
                       onChange={(e) => {
                         change(e, key, 'attribute');
                       }}
