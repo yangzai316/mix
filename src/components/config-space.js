@@ -12,7 +12,8 @@ const ConfigSpace = ({
   editComponentSpecificProperty,
 }) => {
   // 结构数据
-  const { styles, background, attribute, content } = target;
+  const { baseStyle, backgroundStyle, layoutStyle, attribute, content } =
+    target;
 
   // 修改配置参数的回调
   const change = (e, key, type) => {
@@ -25,7 +26,7 @@ const ConfigSpace = ({
   };
   // 背景色逻辑处理
   const backgroundChange = (e) => {
-    editComponentSpecificProperty(target.id, 'background', e.target.value);
+    editComponentSpecificProperty(target.id, 'backgroundStyle', e.target.value);
   };
   return (
     <>
@@ -35,27 +36,41 @@ const ConfigSpace = ({
       </div>
 
       <Tabs type="card">
-        {styles && (
-          <Tabs.TabPane tab="样式设置" key="1">
-            <Collapse defaultActiveKey={['1']}>
-              {/* 基本样式设置 */}
-              <Collapse.Panel header="基本样式设置" key="1">
+        {baseStyle && (
+          <Tabs.TabPane tab="样式设置" key="0">
+            <Collapse accordion>
+              {/* 布局样式设置 */}
+              <Collapse.Panel header="布局" key="1">
                 <Form
                   labelCol={{ span: 8 }}
                   wrapperCol={{ span: 16 }}
                   autoComplete="off"
                 >
                   <ConfigFormItem
-                    data={styles}
-                    formItemType="styles"
+                    data={layoutStyle}
+                    formItemType="layoutStyle"
+                    change={change}
+                  />
+                </Form>
+              </Collapse.Panel>
+              {/* 基本样式设置 */}
+              <Collapse.Panel header="基础样式" key="2">
+                <Form
+                  labelCol={{ span: 8 }}
+                  wrapperCol={{ span: 16 }}
+                  autoComplete="off"
+                >
+                  <ConfigFormItem
+                    data={baseStyle}
+                    formItemType="baseStyle"
                     change={change}
                   />
                 </Form>
               </Collapse.Panel>
 
               {/* 背景设置 */}
-              {background && (
-                <Collapse.Panel header="背景样式设置" key="2">
+              {backgroundStyle && (
+                <Collapse.Panel header="背景" key="3">
                   <Form
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
@@ -81,8 +96,8 @@ const ConfigSpace = ({
                       </Radio.Group>
                     </Form.Item>
                     <ConfigFormItem
-                      data={background}
-                      formItemType="background"
+                      data={backgroundStyle}
+                      formItemType="backgroundStyle"
                       change={change}
                     />
                   </Form>

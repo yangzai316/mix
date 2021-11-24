@@ -68,7 +68,7 @@ const App = () => {
 
   // 特殊样式逻辑处理
   const editComponentSpecificProperty = useCallback((id, type, value) => {
-    if (type === 'background') {
+    if (type === 'backgroundStyle') {
       targetMap[id][type] = dealBackgroundAttr(targetMap[id][type], value);
     }
     setTarget(targetMap[id]);

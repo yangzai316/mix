@@ -18,7 +18,7 @@ export const createElement = (tree, focusCurrentComponent) => {
   return React.createElement(
     tree?.name,
     {
-      style: updateStyle(tree?.styles, tree?.background),
+      style: updateStyle(tree?.baseStyle, tree?.backgroundStyle),
       key: tree?.id,
       ['data-id']: tree?.id,
       onClick: (e) => {
@@ -47,7 +47,7 @@ const createChildElement = (children, method) => {
     return React.createElement(
       item?.name,
       {
-        style: updateStyle(item?.styles, item?.background),
+        style: updateStyle(item?.baseStyle, item?.backgroundStyle),
         ...updateAttribute(item.attribute),
         key: item.id,
         ['data-id']: item.id,
@@ -64,9 +64,9 @@ const createChildElement = (children, method) => {
 /**
  * 样式配置，格式化为 {} 形式
  */
-export const updateStyle = (styles = {}, background = {}) => {
+export const updateStyle = (baseStyle = {}, backgroundStyle = {}) => {
   const res = {};
-  const data = { ...styles, ...background };
+  const data = { ...baseStyle, ...backgroundStyle };
   for (const key in data) {
     if (key === 'backgroundImage') {
       res[key] = `url(${data[key].value})`;

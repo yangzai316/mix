@@ -50,7 +50,7 @@ const SUB_ATTRS = {
     },
     backgroundRepeat: {
       title: '图片重复',
-      type: 'Radio',
+      type: 'Select',
       value: '',
     },
   },

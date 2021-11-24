@@ -100,70 +100,84 @@ const ATTRS = {
     },
     {
       title: '基线对齐',
-      name: '\ue612',
+      name: '\ue6c9',
       key: 'baseline',
     },
   ],
   backgroundPosition: [
     {
-      title: 'top left',
+      title: '上-左边',
       key: 'top left',
     },
     {
-      title: 'top center',
+      title: '上-中间',
       key: 'top center',
     },
     {
-      title: 'top right',
+      title: '上-右边',
       key: 'top right',
     },
     {
-      title: 'center left',
+      title: '中间-左边',
       key: 'center left',
     },
     {
-      title: 'center center',
+      title: '中间',
       key: 'center center',
     },
     {
-      title: 'center right',
+      title: '中间-右边',
       key: 'center right',
     },
     {
-      title: 'bottom left',
+      title: '下-左边',
       key: 'bottom left',
     },
     {
-      title: 'bottom center',
+      title: '下-中间',
       key: 'bottom center',
     },
     {
-      title: 'bottom right',
+      title: '下-右边',
       key: 'bottom right',
     },
   ],
   backgroundSize: [
     {
-      title: '块级布局',
-      name: '\ue62a',
-      key: 'block',
+      title: '自适应',
+      name: '\ue60a',
+      key: 'contain',
     },
     {
-      title: '弹性布局',
-      name: '\ued99',
-      key: 'flex',
+      title: '充满',
+      name: '\ue64d',
+      key: 'cover',
     },
   ],
   backgroundRepeat: [
     {
-      title: '块级布局',
-      name: '\ue62a',
-      key: 'block',
+      title: '仅横向重复',
+      key: 'repeat-x',
     },
     {
-      title: '弹性布局',
-      name: '\ued99',
-      key: 'flex',
+      title: '仅纵向重复',
+      key: 'repeat-y',
+    },
+    {
+      title: '双向重复',
+      key: 'repeat',
+    },
+    {
+      title: '尽可能的重复-不裁剪',
+      key: 'space',
+    },
+    {
+      title: '尽可能的重复-可能改变形状',
+      key: 'round',
+    },
+    {
+      title: '不重复',
+      key: 'no-repeat',
     },
   ],
 };

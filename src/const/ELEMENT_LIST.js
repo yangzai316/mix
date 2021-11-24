@@ -7,7 +7,7 @@ const ELEMENTS = {
   div: {
     name: 'div',
     text: '容器',
-    styles: {
+    baseStyle: {
       width: {
         title: '宽度',
         type: 'Input',
@@ -73,7 +73,7 @@ const ELEMENTS = {
   img: {
     name: 'img',
     text: '图片',
-    styles: {
+    baseStyle: {
       width: {
         title: '宽度',
         type: 'Input',

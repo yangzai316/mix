@@ -7,7 +7,7 @@ let targetTree = {
   name: 'div',
   id: 'root',
   text: '容器',
-  styles: {
+  baseStyle: {
     width: {
       title: '宽度',
       type: 'Input',
@@ -17,11 +17,6 @@ let targetTree = {
       title: '高度',
       type: 'Input',
       value: '100%',
-    },
-    display: {
-      title: '布局方式',
-      type: 'Radio',
-      value: 'block',
     },
     marginTop: {
       title: '外边距-上',
@@ -64,7 +59,14 @@ let targetTree = {
       value: '0px',
     },
   },
-  background: {},
+  layoutStyle: {
+    display: {
+      title: '布局方式',
+      type: 'Radio',
+      value: 'block',
+    },
+  },
+  backgroundStyle: {},
   children: [],
 };
 
