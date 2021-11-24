@@ -11,7 +11,11 @@ import MenuLeft from './components/menu-left';
 import TreeSpace from './components/tree-space';
 import TopNav from './components/top-nav';
 
-import { dealFlexRelateAttr, deleteComponentById } from './utils';
+import {
+  dealFlexRelateAttr,
+  dealBackgroundAttr,
+  deleteComponentById,
+} from './utils';
 
 import targetMap from './data/target-map';
 import targetTree from './data/target-tree';
@@ -44,11 +48,29 @@ const App = () => {
 
   // 属性被修改的回调
   const editComponent = useCallback((id, type, key, value) => {
-    const attr = targetMap[id][type][key];
-    attr.value = value;
-    if (key === 'display')
-      targetMap[id][type] = dealFlexRelateAttr(targetMap[id][type], key, value);
+    if (type === 'content') {
+      targetMap[id][type] = value;
+    } else {
+      const attr = targetMap[id][type][key];
+      attr.value = value;
+      if (key === 'display') {
+        targetMap[id][type] = dealFlexRelateAttr(
+          targetMap[id][type],
+          key,
+          value
+        );
+      }
+    }
 
+    setTarget(targetMap[id]);
+    setTree(JSON.parse(JSON.stringify(targetTree)));
+  }, []);
+
+  // 特殊样式逻辑处理
+  const editComponentSpecificProperty = useCallback((id, type, value) => {
+    if (type === 'background') {
+      targetMap[id][type] = dealBackgroundAttr(targetMap[id][type], value);
+    }
     setTarget(targetMap[id]);
     setTree(JSON.parse(JSON.stringify(targetTree)));
   }, []);
@@ -88,11 +110,15 @@ const App = () => {
             focusCurrentComponent={focusCurrentComponent}
           ></WorkSpace>
         </Content>
-        <Sider width="300" style={{ padding: '10px', backgroundColor: '#000' }}>
+        <Sider
+          width="300"
+          style={{ padding: '10px', backgroundColor: '#000', overflow: 'auto' }}
+        >
           <ConfigSpace
             target={target}
             editComponent={editComponent}
             removeComponent={removeComponent}
+            editComponentSpecificProperty={editComponentSpecificProperty}
           ></ConfigSpace>
         </Sider>
       </Layout>

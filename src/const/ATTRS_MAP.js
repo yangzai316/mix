@@ -104,6 +104,68 @@ const ATTRS = {
       key: 'baseline',
     },
   ],
+  backgroundPosition: [
+    {
+      title: 'top left',
+      key: 'top left',
+    },
+    {
+      title: 'top center',
+      key: 'top center',
+    },
+    {
+      title: 'top right',
+      key: 'top right',
+    },
+    {
+      title: 'center left',
+      key: 'center left',
+    },
+    {
+      title: 'center center',
+      key: 'center center',
+    },
+    {
+      title: 'center right',
+      key: 'center right',
+    },
+    {
+      title: 'bottom left',
+      key: 'bottom left',
+    },
+    {
+      title: 'bottom center',
+      key: 'bottom center',
+    },
+    {
+      title: 'bottom right',
+      key: 'bottom right',
+    },
+  ],
+  backgroundSize: [
+    {
+      title: '块级布局',
+      name: '\ue62a',
+      key: 'block',
+    },
+    {
+      title: '弹性布局',
+      name: '\ued99',
+      key: 'flex',
+    },
+  ],
+  backgroundRepeat: [
+    {
+      title: '块级布局',
+      name: '\ue62a',
+      key: 'block',
+    },
+    {
+      title: '弹性布局',
+      name: '\ued99',
+      key: 'flex',
+    },
+  ],
 };
 
 export default ATTRS;

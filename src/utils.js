@@ -1,4 +1,5 @@
 import React from 'react';
+import SUB_ATTRS from './const/SUB_ATTRS_LIST';
 
 /**
  *
@@ -17,7 +18,7 @@ export const createElement = (tree, focusCurrentComponent) => {
   return React.createElement(
     tree?.name,
     {
-      style: updateStyle(tree?.styles),
+      style: updateStyle(tree?.styles, tree?.background),
       key: tree?.id,
       ['data-id']: tree?.id,
       onClick: (e) => {
@@ -34,7 +35,6 @@ export const createElement = (tree, focusCurrentComponent) => {
  * @param {*} children
  * @returns 循环递归 处理reactElement 子元素
  */
-
 const createChildElement = (children, method) => {
   return children.map((item) => {
     let c = null;
@@ -47,7 +47,7 @@ const createChildElement = (children, method) => {
     return React.createElement(
       item?.name,
       {
-        style: updateStyle(item?.styles || []),
+        style: updateStyle(item?.styles, item?.background),
         ...updateAttribute(item.attribute),
         key: item.id,
         ['data-id']: item.id,
@@ -64,13 +64,19 @@ const createChildElement = (children, method) => {
 /**
  * 样式配置，格式化为 {} 形式
  */
-export const updateStyle = (data) => {
+export const updateStyle = (styles = {}, background = {}) => {
   const res = {};
+  const data = { ...styles, ...background };
   for (const key in data) {
-    res[key] = data[key].value;
+    if (key === 'backgroundImage') {
+      res[key] = `url(${data[key].value})`;
+    } else {
+      res[key] = data[key].value;
+    }
   }
   return res;
 };
+
 /**
  * 属性配置，格式化为 {} 形式
  */
@@ -85,26 +91,43 @@ export const updateAttribute = (data) => {
 /**
  * flex 的连带属性，单独处理
  */
-
 export const dealFlexRelateAttr = (target, key, value) => {
-  if (key === 'display') {
-    if (value === 'flex') {
-      target = {
-        ...target,
-        ...SUB_ATTRS.flexContainer,
-      };
-    } else {
-      for (const key in SUB_ATTRS.flexContainer) {
-        delete target[key];
-      }
+  if (value === 'flex') {
+    // flex
+    target = {
+      ...target,
+      ...SUB_ATTRS.flex,
+    };
+  } else {
+    // block
+    for (const key in SUB_ATTRS.flex) {
+      delete target[key];
     }
+  }
+
+  return target;
+};
+
+/**
+ *
+ * background 的连带属性，单独处理
+ */
+export const dealBackgroundAttr = (target, value) => {
+  if (value === 'color') {
+    // backgroundcolor
+    target = SUB_ATTRS.backgroundColor;
+  } else if (value === 'image') {
+    // backgroundimage
+    target = SUB_ATTRS.backgroundImage;
+  } else {
+    target = {};
   }
   return target;
 };
+
 /**
  * 通过 id 寻找对应的元素
  */
-
 export const deleteComponentById = (tree, id) => {
   findNodeAndDelete(tree, id);
 };

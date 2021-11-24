@@ -20,7 +20,7 @@ let targetTree = {
     },
     display: {
       title: '布局方式',
-      type: 'radio',
+      type: 'Radio',
       value: 'block',
     },
     marginTop: {
@@ -64,6 +64,7 @@ let targetTree = {
       value: '0px',
     },
   },
+  background: {},
   children: [],
 };
 

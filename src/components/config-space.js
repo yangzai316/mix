@@ -1,20 +1,31 @@
 import React, { useMemo } from 'react';
-import { Form, Input, InputNumber, Radio, Tooltip, Tabs, Button } from 'antd';
+import { Form, Input, Divider, Radio, Tooltip, Tabs, Collapse } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import ConfigFormItem from './config-form-item';
 
 import ATTRS from '../const/ATTRS_MAP';
-import BoxModel from './../components/box-model';
 
-const ConfigSpace = ({ target = {}, editComponent, removeComponent }) => {
+const ConfigSpace = ({
+  target = {},
+  editComponent,
+  removeComponent,
+  editComponentSpecificProperty,
+}) => {
   // 结构数据
-  const { styles, attribute, content } = target;
+  const { styles, background, attribute, content } = target;
 
   // 修改配置参数的回调
   const change = (e, key, type) => {
+    console.log(type, key, e);
     editComponent(target.id, type, key, e.target.value);
   };
+  //  移除元素
   const remove = () => {
     removeComponent(target.id);
+  };
+  // 背景色逻辑处理
+  const backgroundChange = (e) => {
+    editComponentSpecificProperty(target.id, 'background', e.target.value);
   };
   return (
     <>
@@ -26,66 +37,58 @@ const ConfigSpace = ({ target = {}, editComponent, removeComponent }) => {
       <Tabs type="card">
         {styles && (
           <Tabs.TabPane tab="样式设置" key="1">
-            <Form
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
-              autoComplete="off"
-            >
-              {Object.keys(styles).map((key) => {
-                if (styles[key].type === 'radio') {
-                  return (
-                    <Form.Item key={key} label={styles[key].title}>
-                      {
-                        <Radio.Group
-                          value={styles[key].value}
-                          onChange={(e) => {
-                            change(e, key, 'styles');
-                          }}
-                        >
-                          {ATTRS[key].map((o) => {
-                            return (
-                              <Tooltip
-                                key={o.key}
-                                placement="top"
-                                title={o.title}
-                              >
-                                <Radio.Button value={o.key}>
-                                  <i className="iconfont">{`${
-                                    o.name || o.title
-                                  }`}</i>
-                                </Radio.Button>
-                              </Tooltip>
-                            );
-                          })}
-                        </Radio.Group>
-                      }
+            <Collapse defaultActiveKey={['1']}>
+              {/* 基本样式设置 */}
+              <Collapse.Panel header="基本样式设置" key="1">
+                <Form
+                  labelCol={{ span: 8 }}
+                  wrapperCol={{ span: 16 }}
+                  autoComplete="off"
+                >
+                  <ConfigFormItem
+                    data={styles}
+                    formItemType="styles"
+                    change={change}
+                  />
+                </Form>
+              </Collapse.Panel>
+
+              {/* 背景设置 */}
+              {background && (
+                <Collapse.Panel header="背景样式设置" key="2">
+                  <Form
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    autoComplete="off"
+                  >
+                    <Form.Item label="背景类型">
+                      <Radio.Group defaultValue="" onChange={backgroundChange}>
+                        <Tooltip placement="top" title="不设置">
+                          <Radio.Button value="">
+                            <i className="iconfont"> &#xe6ab;</i>
+                          </Radio.Button>
+                        </Tooltip>
+                        <Tooltip placement="top" title="颜色">
+                          <Radio.Button value="color">
+                            <i className="iconfont"> &#xe678;</i>
+                          </Radio.Button>
+                        </Tooltip>
+                        <Tooltip placement="top" title="图片">
+                          <Radio.Button value="image">
+                            <i className="iconfont"> &#xe8ba;</i>
+                          </Radio.Button>
+                        </Tooltip>
+                      </Radio.Group>
                     </Form.Item>
-                  );
-                } else if (styles[key].type === 'Input') {
-                  return (
-                    <Form.Item key={key} label={styles[key].title}>
-                      <Input
-                        value={styles[key].value}
-                        onChange={(e) => {
-                          change(e, key, 'styles');
-                        }}
-                      />
-                    </Form.Item>
-                  );
-                } else if (styles[key].type === 'InputNumber') {
-                  return (
-                    <Form.Item key={key} label={styles[key].title}>
-                      <InputNumber
-                        value={styles[key].value}
-                        onChange={(e) => {
-                          change(e, key, 'styles');
-                        }}
-                      />
-                    </Form.Item>
-                  );
-                }
-              })}
-            </Form>
+                    <ConfigFormItem
+                      data={background}
+                      formItemType="background"
+                      change={change}
+                    />
+                  </Form>
+                </Collapse.Panel>
+              )}
+            </Collapse>
           </Tabs.TabPane>
         )}
         {attribute && (
@@ -95,18 +98,11 @@ const ConfigSpace = ({ target = {}, editComponent, removeComponent }) => {
               wrapperCol={{ span: 16 }}
               autoComplete="off"
             >
-              {Object.keys(attribute).map((key) => {
-                return (
-                  <Form.Item key={key} label={`${attribute[key].title}`}>
-                    <Input
-                      value={`${attribute[key].value}`}
-                      onChange={(e) => {
-                        change(e, key, 'attribute');
-                      }}
-                    />
-                  </Form.Item>
-                );
-              })}
+              <ConfigFormItem
+                data={attribute}
+                formItemType="attribute"
+                change={change}
+              />
             </Form>
           </Tabs.TabPane>
         )}
