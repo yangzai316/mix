@@ -56,22 +56,22 @@ const SUB_ATTRS = {
   },
   borderSingle: {
     borderTop: {
-      title: '上边框',
+      title: '边框-上',
       type: 'Input',
       value: '',
     },
     borderBottom: {
-      title: '下边框',
+      title: '-下',
       type: 'Input',
       value: '',
     },
     borderLeft: {
-      title: '左边框',
+      title: '-左',
       type: 'Input',
       value: '',
     },
     borderRight: {
-      title: '右边框',
+      title: '-右',
       type: 'Input',
       value: '',
     },

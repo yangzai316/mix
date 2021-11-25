@@ -21,7 +21,8 @@ export const createElement = (tree, focusCurrentComponent) => {
       style: updateStyle(
         tree?.baseStyle,
         tree?.backgroundStyle,
-        tree?.borderStyle
+        tree?.borderStyle,
+        tree?.positionStyle
       ),
       key: tree?.id,
       ['data-id']: tree?.id,
@@ -54,7 +55,8 @@ const createChildElement = (children, method) => {
         style: updateStyle(
           item?.baseStyle,
           item?.backgroundStyle,
-          item?.borderStyle
+          item?.borderStyle,
+          item?.positionStyle
         ),
         ...updateAttribute(item.attribute),
         key: item.id,
@@ -75,10 +77,16 @@ const createChildElement = (children, method) => {
 export const updateStyle = (
   baseStyle = {},
   backgroundStyle = {},
-  borderStyle = {}
+  borderStyle = {},
+  positionStyle = {}
 ) => {
   const res = {};
-  const data = { ...baseStyle, ...backgroundStyle, ...borderStyle };
+  const data = {
+    ...baseStyle,
+    ...backgroundStyle,
+    ...borderStyle,
+    ...positionStyle,
+  };
   for (const key in data) {
     if (key === 'backgroundImage') {
       res[key] = `url(${data[key].value})`;

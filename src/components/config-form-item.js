@@ -3,47 +3,41 @@ import { Form, Input, Radio, Tooltip, Select } from 'antd';
 
 import ATTRS from '../const/ATTRS_MAP';
 
-const ConfigFormItem = ({ data, formItemType, change }) => {
+const ConfigFormItem = ({ data = {}, formItemType, change }) => {
+  console.log(formItemType, data);
   return (
     <>
       {Object.keys(data).map((key) => {
-        if (data[key].type === 'Radio') {
-          return (
-            <Form.Item key={key} label={data[key].title}>
-              {
-                <Radio.Group
-                  value={data[key].value}
-                  onChange={(e) => {
-                    change(e, key, formItemType);
-                  }}
-                >
-                  {ATTRS[key].map((o) => {
-                    return (
-                      <Tooltip key={o.key} placement="top" title={o.title}>
-                        <Radio.Button value={o.key}>
-                          <i className="iconfont">{`${o.name || o.title}`}</i>
-                        </Radio.Button>
-                      </Tooltip>
-                    );
-                  })}
-                </Radio.Group>
-              }
-            </Form.Item>
-          );
-        } else if (data[key].type === 'Input') {
-          return (
-            <Form.Item key={key} label={data[key].title}>
+        return (
+          <Form.Item key={key} label={data[key].title}>
+            {data[key].type === 'Radio' && (
+              <Radio.Group
+                value={data[key].value}
+                onChange={(e) => {
+                  change(e, key, formItemType);
+                }}
+              >
+                {ATTRS[key].map((o) => {
+                  return (
+                    <Tooltip key={o.key} placement="top" title={o.title}>
+                      <Radio.Button value={o.key}>
+                        <i className="iconfont">{`${o.name || o.title}`}</i>
+                      </Radio.Button>
+                    </Tooltip>
+                  );
+                })}
+              </Radio.Group>
+            )}
+            {data[key].type === 'Input' && (
               <Input
                 value={data[key].value}
                 onChange={(e) => {
                   change(e, key, formItemType);
                 }}
               />
-            </Form.Item>
-          );
-        } else if (data[key].type === 'InputColor') {
-          return (
-            <Form.Item key={key} label={data[key].title}>
+            )}
+
+            {data[key].type === 'InputColor' && (
               <input
                 type="color"
                 value={data[key].value}
@@ -51,11 +45,8 @@ const ConfigFormItem = ({ data, formItemType, change }) => {
                   change(e, key, formItemType);
                 }}
               />
-            </Form.Item>
-          );
-        } else if (data[key].type === 'Select') {
-          return (
-            <Form.Item key={key} label={data[key].title}>
+            )}
+            {data[key].type === 'Select' && (
               <Select
                 value={data[key].value}
                 onChange={(val) => {
@@ -73,9 +64,9 @@ const ConfigFormItem = ({ data, formItemType, change }) => {
                   );
                 })}
               </Select>
-            </Form.Item>
-          );
-        }
+            )}
+          </Form.Item>
+        );
       })}
     </>
   );

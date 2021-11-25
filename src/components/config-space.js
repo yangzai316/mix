@@ -17,6 +17,7 @@ const ConfigSpace = ({
     backgroundStyle,
     layoutStyle,
     borderStyle,
+    positionStyle,
     attribute,
     content,
   } = target;
@@ -143,6 +144,20 @@ const ConfigSpace = ({
                   <ConfigFormItem
                     data={borderStyle}
                     formItemType="borderStyle"
+                    change={change}
+                  />
+                </Form>
+              </Collapse.Panel>
+              {/* 定位样式设置 */}
+              <Collapse.Panel header="定位" key="5">
+                <Form
+                  labelCol={{ span: 8 }}
+                  wrapperCol={{ span: 16 }}
+                  autoComplete="off"
+                >
+                  <ConfigFormItem
+                    data={positionStyle}
+                    formItemType="positionStyle"
                     change={change}
                   />
                 </Form>

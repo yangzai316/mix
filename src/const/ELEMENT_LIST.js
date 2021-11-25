@@ -64,6 +64,33 @@ const ELEMENTS = {
         value: '0px',
       },
     },
+    positionStyle: {
+      position: {
+        title: '定位',
+        type: 'Select',
+        value: 'static',
+      },
+      top: {
+        title: '位移-上',
+        type: 'Input',
+        value: '0px',
+      },
+      bottom: {
+        title: '-下',
+        type: 'Input',
+        value: '0px',
+      },
+      left: {
+        title: '-左',
+        type: 'Input',
+        value: '0px',
+      },
+      right: {
+        title: '-右',
+        type: 'Input',
+        value: '0px',
+      },
+    },
   },
   span: {
     name: 'span',

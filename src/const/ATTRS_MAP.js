@@ -180,6 +180,28 @@ const ATTRS = {
       key: 'no-repeat',
     },
   ],
+  position: [
+    {
+      title: '不定位',
+      key: 'static',
+    },
+    {
+      title: '相对定位',
+      key: 'relative',
+    },
+    {
+      title: '绝对定位->最近父级定位元素',
+      key: 'absolute',
+    },
+    {
+      title: '绝对定位->屏幕视口',
+      key: 'fixed',
+    },
+    {
+      title: '粘性定位',
+      key: 'sticky',
+    },
+  ],
 };
 
 export default ATTRS;
