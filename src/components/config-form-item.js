@@ -5,7 +5,6 @@ import Icon from './../common-components/icon';
 import ATTRS from '../const/ATTRS_MAP';
 
 const ConfigFormItem = ({ data = {}, formItemType, change }) => {
-  console.log(formItemType, data);
   return (
     <>
       {Object.keys(data).map((key) => {

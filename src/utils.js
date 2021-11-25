@@ -145,19 +145,42 @@ export const preView = () => {
   const content = document.getElementById('box').innerHTML;
   const newWindow = window.open('', '', 'status,width=100%,height=100%');
   newWindow.focus();
-  newWindow.document.write(
-    `<!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>MIX-预览</title>
-        </head>
-        <body>
-            ${content}
-        </body>
-        </html>`
-  );
+  newWindow.document.write(htmlCode());
   newWindow.document.close();
+};
+/**
+ * html 格式源码
+ */
+export const htmlCode = () => {
+  const content = document.getElementById('box').innerHTML;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MIX-预览</title></head><body>${content}</body></html>`;
+};
+
+/**
+ * 导出json / html 文件
+ */
+
+export const exportJSON = (data, filename) => {
+  exportFile(data, filename, 'application/json;charset=utf-8');
+};
+export const exportHTML = (filename) => {
+  const data = htmlCode();
+  exportFile(data, filename, 'text/html;charset=utf-8');
+};
+
+/**
+ * Blob 下载文件
+ */
+const exportFile = (data, filename = 'MIX', contentType) => {
+  let blob = new Blob([data], { type: contentType });
+  const a = document.createElement('a');
+  a.download = filename;
+
+  a.href = window.URL.createObjectURL(blob);
+
+  a.dataset.downloadurl = [contentType, a.download, a.href].join(':');
+
+  let event = new MouseEvent('click', {});
+
+  a.dispatchEvent(event);
 };

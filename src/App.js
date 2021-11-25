@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Layout, message } from 'antd';
+import { Layout, message, Drawer } from 'antd';
 const { Header, Sider, Content } = Layout;
 import './app.less';
 
@@ -10,6 +10,7 @@ import ConfigSpace from './components/config-space';
 import MenuLeft from './components/menu-left';
 import TreeSpace from './components/tree-space';
 import TopNav from './components/top-nav';
+import HtmlCode from './components/html-code';
 
 import { dealSpecificProperty, deleteComponentById } from './utils';
 
@@ -85,10 +86,13 @@ const App = () => {
   const onMenuSelect = useCallback((val) => {
     setMenuKey(val.key);
   });
+
+  // 源码预览效果，抽屉控制
+  const [viewCodeVisible, setViewCodeVisible] = useState(false);
   return (
     <Layout style={{ height: '100%' }}>
       <Header>
-        <TopNav />
+        <TopNav tree={tree} openViewCode={setViewCodeVisible} />
       </Header>
       <Layout>
         <MenuLeft onMenuSelect={onMenuSelect} />
@@ -118,6 +122,17 @@ const App = () => {
           ></ConfigSpace>
         </Sider>
       </Layout>
+      <Drawer
+        title="源码预览"
+        placement="right"
+        width="800px"
+        visible={viewCodeVisible}
+        onClose={() => {
+          setViewCodeVisible(false);
+        }}
+      >
+        <HtmlCode></HtmlCode>
+      </Drawer>
     </Layout>
   );
 };

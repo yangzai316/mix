@@ -1,32 +1,46 @@
 import React from 'react';
-import { Button, Menu } from 'antd';
+import { Button } from 'antd';
 import {
   DownloadOutlined,
   EyeOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
 import Icon from './../common-components/icon';
-import { preView } from './../utils';
+import { preView, exportJSON, exportHTML } from './../utils';
 
-const TopNav = () => {
-  const onClick = ({ key }) => {
-    if (key === '1') {
-      preView();
-    } else {
-    }
-  };
-  const menu = (
-    <Menu onClick={onClick}>
-      <Menu.Item key="1">效果预览</Menu.Item>
-      <Menu.Item key="2">代码预览</Menu.Item>
-    </Menu>
-  );
+const TopNav = ({ tree, openViewCode }) => {
   return (
     <div className="top-nav">
-      <Button icon={<DownloadOutlined />}>导入</Button>
-      <Button icon={<EyeOutlined />}>效果预览</Button>
-      <Button icon={<Icon fontSize="12">&#xe7ae;</Icon>}>代码预览</Button>
-      <Button icon={<UploadOutlined />}>导出</Button>
+      <Button disabled icon={<DownloadOutlined />}>
+        JSON导入
+      </Button>
+      <Button icon={<EyeOutlined />} onClick={preView}>
+        效果预览
+      </Button>
+      <Button
+        icon={<Icon fontSize="12">&#xe7ae;</Icon>}
+        onClick={() => {
+          openViewCode(true);
+        }}
+      >
+        &nbsp;源码预览
+      </Button>
+      <Button
+        icon={<UploadOutlined />}
+        onClick={() => {
+          exportJSON([JSON.stringify(tree, null, 2)]);
+        }}
+      >
+        JSON导出
+      </Button>
+      <Button
+        icon={<UploadOutlined />}
+        onClick={() => {
+          exportHTML();
+        }}
+      >
+        HTML导出
+      </Button>
     </div>
   );
 };
