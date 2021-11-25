@@ -41,7 +41,7 @@ const SUB_ATTRS = {
     backgroundPosition: {
       title: '图片位置',
       type: 'Select',
-      value: '',
+      value: 'top left',
     },
     backgroundSize: {
       title: '图片尺寸',
@@ -51,7 +51,7 @@ const SUB_ATTRS = {
     backgroundRepeat: {
       title: '图片重复',
       type: 'Select',
-      value: '',
+      value: 'repeat',
     },
   },
   borderSingle: {

@@ -43,125 +43,135 @@ const ConfigSpace = ({
       <Tabs type="card">
         {baseStyle && (
           <Tabs.TabPane tab="样式设置" key="0">
-            <Collapse accordion>
+            <Collapse accordion defaultActiveKey={['2']}>
               {/* 布局样式设置 */}
-              <Collapse.Panel header="布局" key="1">
-                <Form
-                  labelCol={{ span: 8 }}
-                  wrapperCol={{ span: 16 }}
-                  autoComplete="off"
-                >
-                  <ConfigFormItem
-                    data={layoutStyle}
-                    formItemType="layoutStyle"
-                    change={change}
-                  />
-                </Form>
-              </Collapse.Panel>
+              {layoutStyle && (
+                <Collapse.Panel header="布局" key="1">
+                  <Form
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    autoComplete="off"
+                  >
+                    <ConfigFormItem
+                      data={layoutStyle}
+                      formItemType="layoutStyle"
+                      change={change}
+                    />
+                  </Form>
+                </Collapse.Panel>
+              )}
               {/* 基本样式设置 */}
-              <Collapse.Panel header="基础样式" key="2">
-                <Form
-                  labelCol={{ span: 8 }}
-                  wrapperCol={{ span: 16 }}
-                  autoComplete="off"
-                >
-                  <ConfigFormItem
-                    data={baseStyle}
-                    formItemType="baseStyle"
-                    change={change}
-                  />
-                </Form>
-              </Collapse.Panel>
+              {baseStyle && (
+                <Collapse.Panel header="基础样式" key="2">
+                  <Form
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    autoComplete="off"
+                  >
+                    <ConfigFormItem
+                      data={baseStyle}
+                      formItemType="baseStyle"
+                      change={change}
+                    />
+                  </Form>
+                </Collapse.Panel>
+              )}
               {/* 背景设置 */}
-              <Collapse.Panel header="背景" key="3">
-                <Form
-                  labelCol={{ span: 8 }}
-                  wrapperCol={{ span: 16 }}
-                  autoComplete="off"
-                >
-                  <Form.Item label="边框方式">
-                    <Radio.Group
-                      defaultValue=""
-                      onChange={(e) => {
-                        specificPropertyChange(e, 'backgroundStyle');
-                      }}
-                    >
-                      <Tooltip placement="top" title="不设置">
-                        <Radio.Button value="">
-                          <i className="iconfont"> &#xe6ab;</i>
-                        </Radio.Button>
-                      </Tooltip>
-                      <Tooltip placement="top" title="颜色">
-                        <Radio.Button value="backgroundColor">
-                          <i className="iconfont"> &#xe678;</i>
-                        </Radio.Button>
-                      </Tooltip>
-                      <Tooltip placement="top" title="图片">
-                        <Radio.Button value="backgroundImage">
-                          <i className="iconfont"> &#xe8ba;</i>
-                        </Radio.Button>
-                      </Tooltip>
-                    </Radio.Group>
-                  </Form.Item>
-                  <ConfigFormItem
-                    data={backgroundStyle}
-                    formItemType="backgroundStyle"
-                    change={change}
-                  />
-                </Form>
-              </Collapse.Panel>
+              {backgroundStyle && (
+                <Collapse.Panel header="背景" key="3">
+                  <Form
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    autoComplete="off"
+                  >
+                    <Form.Item label="边框方式">
+                      <Radio.Group
+                        defaultValue=""
+                        onChange={(e) => {
+                          specificPropertyChange(e, 'backgroundStyle');
+                        }}
+                      >
+                        <Tooltip placement="top" title="不设置">
+                          <Radio.Button value="">
+                            <i className="iconfont"> &#xe6ab;</i>
+                          </Radio.Button>
+                        </Tooltip>
+                        <Tooltip placement="top" title="颜色">
+                          <Radio.Button value="backgroundColor">
+                            <i className="iconfont"> &#xe678;</i>
+                          </Radio.Button>
+                        </Tooltip>
+                        <Tooltip placement="top" title="图片">
+                          <Radio.Button value="backgroundImage">
+                            <i className="iconfont"> &#xe8ba;</i>
+                          </Radio.Button>
+                        </Tooltip>
+                      </Radio.Group>
+                    </Form.Item>
+                    <ConfigFormItem
+                      data={backgroundStyle}
+                      formItemType="backgroundStyle"
+                      change={change}
+                    />
+                  </Form>
+                </Collapse.Panel>
+              )}
               {/* 边框设置 */}
-              <Collapse.Panel header="边框" key="4">
-                <Form
-                  labelCol={{ span: 8 }}
-                  wrapperCol={{ span: 16 }}
-                  autoComplete="off"
-                >
-                  <Form.Item label="背景类型">
-                    <Radio.Group
-                      defaultValue=""
-                      onChange={(e) => {
-                        specificPropertyChange(e, 'borderStyle');
-                      }}
-                    >
-                      <Tooltip placement="top" title="不设置">
-                        <Radio.Button value="">
-                          <i className="iconfont"> &#xe6ab;</i>
-                        </Radio.Button>
-                      </Tooltip>
-                      <Tooltip placement="top" title="每边单独设置">
-                        <Radio.Button value="borderSingle">
-                          <i className="iconfont"> &#xe698;</i>
-                        </Radio.Button>
-                      </Tooltip>
-                      <Tooltip placement="top" title="四边同时设置">
-                        <Radio.Button value="borderRound">
-                          <i className="iconfont"> &#xe60b;</i>
-                        </Radio.Button>
-                      </Tooltip>
-                    </Radio.Group>
-                  </Form.Item>
-                  <ConfigFormItem
-                    data={borderStyle}
-                    formItemType="borderStyle"
-                    change={change}
-                  />
-                </Form>
-              </Collapse.Panel>
+              {borderStyle && (
+                <Collapse.Panel header="边框" key="4">
+                  <Form
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    autoComplete="off"
+                  >
+                    <Form.Item label="背景类型">
+                      <Radio.Group
+                        defaultValue=""
+                        onChange={(e) => {
+                          specificPropertyChange(e, 'borderStyle');
+                        }}
+                      >
+                        <Tooltip placement="top" title="不设置">
+                          <Radio.Button value="">
+                            <i className="iconfont"> &#xe6ab;</i>
+                          </Radio.Button>
+                        </Tooltip>
+                        <Tooltip placement="top" title="每边单独设置">
+                          <Radio.Button value="borderSingle">
+                            <i className="iconfont"> &#xe698;</i>
+                          </Radio.Button>
+                        </Tooltip>
+                        <Tooltip placement="top" title="四边同时设置">
+                          <Radio.Button value="borderRound">
+                            <i className="iconfont"> &#xe60b;</i>
+                          </Radio.Button>
+                        </Tooltip>
+                      </Radio.Group>
+                    </Form.Item>
+                    <ConfigFormItem
+                      data={borderStyle}
+                      formItemType="borderStyle"
+                      change={change}
+                    />
+                  </Form>
+                </Collapse.Panel>
+              )}
               {/* 定位样式设置 */}
-              <Collapse.Panel header="定位" key="5">
-                <Form
-                  labelCol={{ span: 8 }}
-                  wrapperCol={{ span: 16 }}
-                  autoComplete="off"
-                >
-                  <ConfigFormItem
-                    data={positionStyle}
-                    formItemType="positionStyle"
-                    change={change}
-                  />
-                </Form>
-              </Collapse.Panel>
+              {positionStyle && (
+                <Collapse.Panel header="定位" key="5">
+                  <Form
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    autoComplete="off"
+                  >
+                    <ConfigFormItem
+                      data={positionStyle}
+                      formItemType="positionStyle"
+                      change={change}
+                    />
+                  </Form>
+                </Collapse.Panel>
+              )}
             </Collapse>
           </Tabs.TabPane>
         )}
@@ -187,8 +197,9 @@ const ConfigSpace = ({
               wrapperCol={{ span: 16 }}
               autoComplete="off"
             >
-              <Input
-                value={`${content}`}
+              <Input.TextArea
+                rows={4}
+                value={content}
                 onChange={(e) => {
                   change(e, '', 'content');
                 }}

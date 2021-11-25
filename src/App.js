@@ -11,11 +11,7 @@ import MenuLeft from './components/menu-left';
 import TreeSpace from './components/tree-space';
 import TopNav from './components/top-nav';
 
-import {
-  dealFlexRelateAttr,
-  dealSpecificProperty,
-  deleteComponentById,
-} from './utils';
+import { dealSpecificProperty, deleteComponentById } from './utils';
 
 import targetMap from './data/target-map';
 import targetTree from './data/target-tree';
@@ -51,14 +47,13 @@ const App = () => {
     if (type === 'content') {
       targetMap[id][type] = value;
     } else {
-      const attr = targetMap[id][type][key];
-      attr.value = value;
+      targetMap[id][type][key].value = value;
       if (key === 'display') {
-        targetMap[id][type] = dealFlexRelateAttr(
-          targetMap[id][type],
-          key,
-          value
-        );
+        // 即是样式属性，又有关联的属性
+        targetMap[id][type] = {
+          ...targetMap[id][type],
+          ...dealSpecificProperty(value),
+        };
       }
     }
 
@@ -66,7 +61,7 @@ const App = () => {
     setTree(JSON.parse(JSON.stringify(targetTree)));
   }, []);
 
-  // 特殊样式逻辑处理 （background / border）
+  // 特殊样式逻辑处理 （background / border），自身不是样式属性，只有关联属性
   const editComponentSpecificProperty = useCallback((id, type, value) => {
     targetMap[id][type] = dealSpecificProperty(value);
 

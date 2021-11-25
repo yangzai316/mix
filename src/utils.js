@@ -22,7 +22,8 @@ export const createElement = (tree, focusCurrentComponent) => {
         tree?.baseStyle,
         tree?.backgroundStyle,
         tree?.borderStyle,
-        tree?.positionStyle
+        tree?.positionStyle,
+        tree?.layoutStyle
       ),
       key: tree?.id,
       ['data-id']: tree?.id,
@@ -56,7 +57,8 @@ const createChildElement = (children, method) => {
           item?.baseStyle,
           item?.backgroundStyle,
           item?.borderStyle,
-          item?.positionStyle
+          item?.positionStyle,
+          item?.layoutStyle
         ),
         ...updateAttribute(item.attribute),
         key: item.id,
@@ -78,7 +80,8 @@ export const updateStyle = (
   baseStyle = {},
   backgroundStyle = {},
   borderStyle = {},
-  positionStyle = {}
+  positionStyle = {},
+  layoutStyle = {}
 ) => {
   const res = {};
   const data = {
@@ -86,6 +89,7 @@ export const updateStyle = (
     ...backgroundStyle,
     ...borderStyle,
     ...positionStyle,
+    ...layoutStyle,
   };
   for (const key in data) {
     if (key === 'backgroundImage') {
@@ -109,32 +113,12 @@ export const updateAttribute = (data) => {
 };
 
 /**
- * flex 的连带属性，单独处理
- */
-export const dealFlexRelateAttr = (target, key, value) => {
-  if (value === 'flex') {
-    // flex
-    target = {
-      ...target,
-      ...SUB_ATTRS.flex,
-    };
-  } else {
-    // block
-    for (const key in SUB_ATTRS.flex) {
-      delete target[key];
-    }
-  }
-
-  return target;
-};
-
-/**
  *
- * background 的连带属性，单独处理
+ * 特殊属性，单独处理
  */
 export const dealSpecificProperty = (value) => {
   if (value) {
-    return SUB_ATTRS[value];
+    return JSON.parse(JSON.stringify(SUB_ATTRS[value]));
   }
   return {};
 };

@@ -202,6 +202,28 @@ const ATTRS = {
       key: 'sticky',
     },
   ],
+  fontWeight: [
+    {
+      title: '更细',
+      key: 'lighter',
+      name: '\ue641',
+    },
+    {
+      title: '正常',
+      key: 'normal',
+      name: '\ue603',
+    },
+    {
+      title: '粗',
+      key: 'bold',
+      name: '\ue600',
+    },
+    {
+      title: '更粗',
+      key: 'bolder',
+      name: '\ue601',
+    },
+  ],
 };
 
 export default ATTRS;
