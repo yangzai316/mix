@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { Layout, message, Drawer } from 'antd';
 const { Header, Sider, Content } = Layout;
-import './app.less';
+import './../public/css/app.less';
 
 import ElementSpace from './components/element-space';
 import WorkSpace from './components/work-space';

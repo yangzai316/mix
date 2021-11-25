@@ -1,4 +1,5 @@
 import React from 'react';
+import './../../public/css/iconfont.css';
 /**
  * 字体 组件
  * <Icon fontSize="12">&#xe7ae;</Icon>
