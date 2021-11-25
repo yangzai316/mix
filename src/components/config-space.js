@@ -1,9 +1,8 @@
-import React, { useMemo } from 'react';
-import { Form, Input, Divider, Radio, Tooltip, Tabs, Collapse } from 'antd';
+import React from 'react';
+import { Form, Input, Radio, Tooltip, Tabs, Collapse } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import ConfigFormItem from './config-form-item';
-
-import ATTRS from '../const/ATTRS_MAP';
+import Icon from './../common-components/icon';
 
 const ConfigSpace = ({
   target = {},
@@ -93,17 +92,17 @@ const ConfigSpace = ({
                       >
                         <Tooltip placement="top" title="不设置">
                           <Radio.Button value="">
-                            <i className="iconfont"> &#xe6ab;</i>
+                            <Icon>&#xe6ab;</Icon>
                           </Radio.Button>
                         </Tooltip>
                         <Tooltip placement="top" title="颜色">
                           <Radio.Button value="backgroundColor">
-                            <i className="iconfont"> &#xe678;</i>
+                            <Icon>&#xe678;</Icon>
                           </Radio.Button>
                         </Tooltip>
                         <Tooltip placement="top" title="图片">
                           <Radio.Button value="backgroundImage">
-                            <i className="iconfont"> &#xe8ba;</i>
+                            <Icon>&#xe8ba;</Icon>
                           </Radio.Button>
                         </Tooltip>
                       </Radio.Group>
@@ -133,17 +132,17 @@ const ConfigSpace = ({
                       >
                         <Tooltip placement="top" title="不设置">
                           <Radio.Button value="">
-                            <i className="iconfont"> &#xe6ab;</i>
+                            <Icon>&#xe6ab;</Icon>
                           </Radio.Button>
                         </Tooltip>
                         <Tooltip placement="top" title="每边单独设置">
                           <Radio.Button value="borderSingle">
-                            <i className="iconfont"> &#xe698;</i>
+                            <Icon>&#xe698;</Icon>
                           </Radio.Button>
                         </Tooltip>
                         <Tooltip placement="top" title="四边同时设置">
                           <Radio.Button value="borderRound">
-                            <i className="iconfont"> &#xe60b;</i>
+                            <Icon>&#xe60b;</Icon>
                           </Radio.Button>
                         </Tooltip>
                       </Radio.Group>

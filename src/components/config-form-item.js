@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input, Radio, Tooltip, Select } from 'antd';
+import Icon from './../common-components/icon';
 
 import ATTRS from '../const/ATTRS_MAP';
 
@@ -21,7 +22,7 @@ const ConfigFormItem = ({ data = {}, formItemType, change }) => {
                   return (
                     <Tooltip key={o.key} placement="top" title={o.title}>
                       <Radio.Button value={o.key}>
-                        <i className="iconfont">{`${o.name || o.title}`}</i>
+                        <Icon>{`${o.name || o.title}`}</Icon>
                       </Radio.Button>
                     </Tooltip>
                   );
