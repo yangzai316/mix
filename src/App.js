@@ -71,11 +71,22 @@ const App = () => {
     setTree(JSON.parse(JSON.stringify(targetTree)));
   }, []);
 
-  // 移除元素
-  const removeComponent = useCallback((id) => {
-    delete targetMap[id];
-    deleteComponentById(targetTree, id);
-    setTree(JSON.parse(JSON.stringify(targetTree)));
+  // 移除 or  清空元素
+  const removeComponent = useCallback((id, type) => {
+    if (type === 'clear') {
+      // 清空根组件下的所有节点
+      for (const key in targetMap) {
+        key !== 'root' && delete targetMap[key];
+      }
+      targetTree.children = [];
+      setTree(JSON.parse(JSON.stringify(targetTree)));
+    } else {
+      // 删除当前的元素
+      delete targetMap[id];
+      deleteComponentById(targetTree, id);
+      setTree(JSON.parse(JSON.stringify(targetTree)));
+    }
+    console.log(targetTree, targetMap);
   });
   // 聚焦config 配置于当前元素，
   const focusCurrentComponent = useCallback((id) => {

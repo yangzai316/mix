@@ -8,7 +8,7 @@ import {
 import Icon from '../common-components/icon';
 import { preView, exportJSON, exportHTML } from '../utils';
 
-const TopNav = ({ tree, openViewCode }) => {
+const TopNav = ({ openViewCode }) => {
   return (
     <div className="nav-top">
       <Button disabled icon={<DownloadOutlined />}>
@@ -27,20 +27,10 @@ const TopNav = ({ tree, openViewCode }) => {
         &nbsp;源码预览
       </Button>
       &nbsp; &nbsp;
-      <Button
-        icon={<UploadOutlined />}
-        onClick={() => {
-          exportJSON([JSON.stringify(tree, null, 2)]);
-        }}
-      >
+      <Button icon={<UploadOutlined />} onClick={exportJSON}>
         JSON导出
       </Button>
-      <Button
-        icon={<UploadOutlined />}
-        onClick={() => {
-          exportHTML();
-        }}
-      >
+      <Button icon={<UploadOutlined />} onClick={exportHTML}>
         HTML导出
       </Button>
     </div>

@@ -65,7 +65,6 @@ const createChildElement = (children, method) => {
         key: item.id,
         ['data-id']: item.id,
         onClick: (e) => {
-          alert(2);
           e.stopPropagation();
           method(item.id);
         },
@@ -165,8 +164,12 @@ export const htmlCode = () => {
  * 导出json / html 文件
  */
 
-export const exportJSON = (data, filename) => {
-  exportFile(data, filename, 'application/json;charset=utf-8');
+export const exportJSON = (filename) => {
+  exportFile(
+    [JSON.stringify(targetTree, null, 2)],
+    filename,
+    'application/json;charset=utf-8'
+  );
 };
 export const exportHTML = (filename) => {
   const data = htmlCode();
@@ -194,7 +197,6 @@ const exportFile = (data, filename = 'MIX', contentType) => {
  * 事件组装，完成事件字符串的拼接
  */
 export const createScriptStr = (id, eventName, eventContent, type) => {
-  console.log(id, eventName, eventContent, type);
   let _ = '';
   if (type === 2) {
     _ = `document.querySelector('[data-id=${id}]').${eventName}=function(){

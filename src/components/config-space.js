@@ -1,6 +1,10 @@
 import React from 'react';
-import { Form, Input, Radio, Tooltip, Tabs, Collapse } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { Form, Input, Radio, Tooltip, Tabs, Collapse, Modal } from 'antd';
+import {
+  DeleteOutlined,
+  CloseCircleOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
 import ConfigFormItem from './config-form-item';
 import EventConfig from './event-config';
 import Icon from './../common-components/icon';
@@ -27,8 +31,20 @@ const ConfigSpace = ({
     editComponent(target.id, type, key, e.target.value);
   };
   //  移除元素
-  const remove = () => {
-    removeComponent(target.id);
+  const remove = (type) => {
+    Modal.confirm({
+      title: '提示',
+      icon: <ExclamationCircleOutlined />,
+      content:
+        type === 'remove'
+          ? '确定要删除这个元素节点？'
+          : '确定要清空所有元素节点？',
+      okText: 'Yes',
+      cancelText: 'No',
+      onOk() {
+        removeComponent(target.id, type);
+      },
+    });
   };
   // 背景色逻辑处理
   const specificPropertyChange = (e, type) => {
@@ -47,8 +63,20 @@ const ConfigSpace = ({
   return (
     <>
       <div className="config-top-title">
-        <h4>{`当前聚焦元素：${target.text}-${target.name}-${target.id}`}</h4>
-        {target.id !== 'root' && <DeleteOutlined onClick={remove} />}
+        <h4>{`当前元素：${target.text}-${target.name}-${target.id}`}</h4>
+        {target.id === 'root' ? (
+          <DeleteOutlined
+            onClick={() => {
+              remove('clear');
+            }}
+          />
+        ) : (
+          <CloseCircleOutlined
+            onClick={() => {
+              remove('remove');
+            }}
+          />
+        )}
       </div>
 
       <Tabs type="card">
