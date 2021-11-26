@@ -1,5 +1,6 @@
 import React from 'react';
 import SUB_ATTRS from './const/SUB_ATTRS_LIST';
+import targetTree from './data/target-tree';
 
 /**
  *
@@ -64,6 +65,7 @@ const createChildElement = (children, method) => {
         key: item.id,
         ['data-id']: item.id,
         onClick: (e) => {
+          alert(2);
           e.stopPropagation();
           method(item.id);
         },
@@ -142,7 +144,6 @@ const findNodeAndDelete = (data, id, index, parentList) => {
  * 打开新tab页面，对效果进行预览
  */
 export const preView = () => {
-  const content = document.getElementById('box').innerHTML;
   const newWindow = window.open('', '', 'status,width=100%,height=100%');
   newWindow.focus();
   newWindow.document.write(htmlCode());
@@ -153,7 +154,11 @@ export const preView = () => {
  */
 export const htmlCode = () => {
   const content = document.getElementById('box').innerHTML;
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MIX-预览</title></head><body>${content}</body></html>`;
+  const script = targetTree.script || '';
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MIX-预览</title></head>
+    <body>${content}</body>
+    <script>${script}</script>
+  </html>`;
 };
 
 /**
@@ -183,4 +188,22 @@ const exportFile = (data, filename = 'MIX', contentType) => {
   let event = new MouseEvent('click', {});
 
   a.dispatchEvent(event);
+};
+
+/**
+ * 事件组装，完成事件字符串的拼接
+ */
+export const createScriptStr = (id, eventName, eventContent, type) => {
+  console.log(id, eventName, eventContent, type);
+  let _ = '';
+  if (type === 2) {
+    _ = `document.querySelector('[data-id=${id}]').${eventName}=function(){
+       window.open('${eventContent}');
+     }`;
+  } else if (type === 3) {
+    _ = `document.querySelector('[data-id=${id}]').${eventName}=function(){
+      ${eventContent}
+     }`;
+  }
+  return _;
 };

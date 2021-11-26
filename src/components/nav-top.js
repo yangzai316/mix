@@ -5,15 +5,16 @@ import {
   EyeOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import Icon from './../common-components/icon';
-import { preView, exportJSON, exportHTML } from './../utils';
+import Icon from '../common-components/icon';
+import { preView, exportJSON, exportHTML } from '../utils';
 
 const TopNav = ({ tree, openViewCode }) => {
   return (
-    <div className="top-nav">
+    <div className="nav-top">
       <Button disabled icon={<DownloadOutlined />}>
         JSON导入
       </Button>
+      &nbsp; &nbsp;
       <Button icon={<EyeOutlined />} onClick={preView}>
         效果预览
       </Button>
@@ -25,6 +26,7 @@ const TopNav = ({ tree, openViewCode }) => {
       >
         &nbsp;源码预览
       </Button>
+      &nbsp; &nbsp;
       <Button
         icon={<UploadOutlined />}
         onClick={() => {

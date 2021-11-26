@@ -2,7 +2,9 @@ import React from 'react';
 import { Form, Input, Radio, Tooltip, Tabs, Collapse } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import ConfigFormItem from './config-form-item';
+import EventConfig from './event-config';
 import Icon from './../common-components/icon';
+import { createScriptStr } from './../utils';
 
 const ConfigSpace = ({
   target = {},
@@ -32,6 +34,16 @@ const ConfigSpace = ({
   const specificPropertyChange = (e, type) => {
     editComponentSpecificProperty(target.id, type, e.target.value);
   };
+  // 事件内容设置
+  const setEventConfig = (eventName, eventContent, type) => {
+    const scriptContent = createScriptStr(
+      target.id,
+      eventName,
+      eventContent,
+      type
+    );
+    editComponent('root', 'script', '', scriptContent);
+  };
   return (
     <>
       <div className="config-top-title">
@@ -46,11 +58,7 @@ const ConfigSpace = ({
               {/* 布局样式设置 */}
               {layoutStyle && (
                 <Collapse.Panel header="布局" key="1">
-                  <Form
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    autoComplete="off"
-                  >
+                  <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
                     <ConfigFormItem
                       data={layoutStyle}
                       formItemType="layoutStyle"
@@ -62,11 +70,7 @@ const ConfigSpace = ({
               {/* 基本样式设置 */}
               {baseStyle && (
                 <Collapse.Panel header="基础样式" key="2">
-                  <Form
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    autoComplete="off"
-                  >
+                  <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
                     <ConfigFormItem
                       data={baseStyle}
                       formItemType="baseStyle"
@@ -78,12 +82,8 @@ const ConfigSpace = ({
               {/* 背景设置 */}
               {backgroundStyle && (
                 <Collapse.Panel header="背景" key="3">
-                  <Form
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    autoComplete="off"
-                  >
-                    <Form.Item label="边框方式">
+                  <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
+                    <Form.Item label="背景方式">
                       <Radio.Group
                         defaultValue=""
                         onChange={(e) => {
@@ -118,12 +118,8 @@ const ConfigSpace = ({
               {/* 边框设置 */}
               {borderStyle && (
                 <Collapse.Panel header="边框" key="4">
-                  <Form
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    autoComplete="off"
-                  >
-                    <Form.Item label="背景类型">
+                  <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
+                    <Form.Item label="边框类型">
                       <Radio.Group
                         defaultValue=""
                         onChange={(e) => {
@@ -158,11 +154,7 @@ const ConfigSpace = ({
               {/* 定位样式设置 */}
               {positionStyle && (
                 <Collapse.Panel header="定位" key="5">
-                  <Form
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    autoComplete="off"
-                  >
+                  <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
                     <ConfigFormItem
                       data={positionStyle}
                       formItemType="positionStyle"
@@ -176,11 +168,7 @@ const ConfigSpace = ({
         )}
         {attribute && (
           <Tabs.TabPane tab="属性设置" key="2">
-            <Form
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
-              autoComplete="off"
-            >
+            <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
               <ConfigFormItem
                 data={attribute}
                 formItemType="attribute"
@@ -191,11 +179,7 @@ const ConfigSpace = ({
         )}
         {(content || content === '') && (
           <Tabs.TabPane tab="内容设置" key="3">
-            <Form
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
-              autoComplete="off"
-            >
+            <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
               <Input.TextArea
                 rows={4}
                 value={content}
@@ -206,6 +190,9 @@ const ConfigSpace = ({
             </Form>
           </Tabs.TabPane>
         )}
+        <Tabs.TabPane tab="事件设置" key="4">
+          <EventConfig setEventConfig={setEventConfig}></EventConfig>
+        </Tabs.TabPane>
       </Tabs>
     </>
   );

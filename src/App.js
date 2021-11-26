@@ -1,18 +1,18 @@
 import React, { useCallback, useState } from 'react';
 
-import { Layout, message, Drawer } from 'antd';
-const { Header, Sider, Content } = Layout;
+import { Layout, message, Drawer, Button } from 'antd';
+const { Header, Sider, Content, Space } = Layout;
 import './../public/css/app.less';
-
+import { UploadOutlined } from '@ant-design/icons';
 import ElementSpace from './components/element-space';
 import WorkSpace from './components/work-space';
 import ConfigSpace from './components/config-space';
 import MenuLeft from './components/menu-left';
 import TreeSpace from './components/tree-space';
-import TopNav from './components/top-nav';
+import TopNav from './components/nav-top';
 import HtmlCode from './components/html-code';
 
-import { dealSpecificProperty, deleteComponentById } from './utils';
+import { dealSpecificProperty, deleteComponentById, exportHTML } from './utils';
 
 import targetMap from './data/target-map';
 import targetTree from './data/target-tree';
@@ -45,7 +45,8 @@ const App = () => {
 
   // 属性被修改的回调
   const editComponent = useCallback((id, type, key, value) => {
-    if (type === 'content') {
+    if (!key) {
+      // 设置 content script
       targetMap[id][type] = value;
     } else {
       targetMap[id][type][key].value = value;
@@ -130,6 +131,16 @@ const App = () => {
         onClose={() => {
           setViewCodeVisible(false);
         }}
+        extra={
+          <Button
+            icon={<UploadOutlined />}
+            onClick={() => {
+              exportHTML();
+            }}
+          >
+            HTML导出
+          </Button>
+        }
       >
         <HtmlCode></HtmlCode>
       </Drawer>

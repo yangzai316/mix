@@ -24,6 +24,7 @@ const ElementSpace = ({ setTarget }) => {
               className="item"
               data-key={item}
               key={item}
+              title={item}
               onDragStart={dragStart}
             >
               {ELEMENTS[item].text}

@@ -14,10 +14,10 @@ class MenuLeft extends React.Component {
         onSelect={this.props.onMenuSelect}
       >
         <Menu.Item key="1" icon={<LayoutOutlined />}>
-          布局
+          布局操作
         </Menu.Item>
         <Menu.Item key="2" icon={<ClusterOutlined />}>
-          树形数据
+          DOM结构展示
         </Menu.Item>
       </Menu>
     );

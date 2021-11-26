@@ -101,6 +101,7 @@ let targetTree = {
     },
   },
   children: [],
+  script: '',
 };
 
 export default targetTree;
