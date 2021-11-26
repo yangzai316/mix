@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from 'react';
-
+// antd
 import { Layout, message, Drawer, Button } from 'antd';
-const { Header, Sider, Content, Space } = Layout;
+const { Header, Sider, Content } = Layout;
 import './../public/css/app.less';
+// 自定义组件
 import { UploadOutlined } from '@ant-design/icons';
 import ElementSpace from './components/element-space';
 import WorkSpace from './components/work-space';
@@ -11,9 +12,9 @@ import MenuLeft from './components/menu-left';
 import TreeSpace from './components/tree-space';
 import TopNav from './components/nav-top';
 import HtmlCode from './components/html-code';
-
+// 自定义 工具方法
 import { dealSpecificProperty, deleteComponentById, exportHTML } from './utils';
-
+// 核心数据
 import targetMap from './data/target-map';
 import targetTree from './data/target-tree';
 
@@ -96,7 +97,11 @@ const App = () => {
   // menu 改变
   const [menuKey, setMenuKey] = useState('1');
   const onMenuSelect = useCallback((val) => {
-    setMenuKey(val.key);
+    if (val.key === '3') {
+      setViewCodeVisible(true);
+    } else {
+      setMenuKey(val.key);
+    }
   });
 
   // 源码预览效果，抽屉控制
@@ -104,18 +109,19 @@ const App = () => {
   return (
     <Layout style={{ height: '100%' }}>
       <Header>
-        <TopNav tree={tree} openViewCode={setViewCodeVisible} />
+        {/* 头部nav组件 */}
+        <TopNav />
       </Header>
       <Layout>
-        <MenuLeft onMenuSelect={onMenuSelect} />
+        {/* 左边Meun组件 */}
+        <MenuLeft selectedKey={menuKey} onMenuSelect={onMenuSelect} />
+        {/* 左边Sider组件 */}
         <Sider style={{ backgroundColor: '#000' }}>
-          {menuKey === '1' ? (
-            <ElementSpace setTarget={setTargetCb} />
-          ) : (
-            <TreeSpace tree={tree} />
-          )}
+          {menuKey === '1' && <ElementSpace setTarget={setTargetCb} />}
+          {menuKey === '2' && <TreeSpace tree={tree} />}
         </Sider>
         <Content>
+          {/* 中间 工作区 */}
           <WorkSpace
             tree={tree}
             setContainer={setContainer}
@@ -126,6 +132,7 @@ const App = () => {
           width="300"
           style={{ padding: '10px', backgroundColor: '#000', overflow: 'auto' }}
         >
+          {/* 右边属性配置区 */}
           <ConfigSpace
             target={target}
             editComponent={editComponent}
@@ -134,21 +141,18 @@ const App = () => {
           ></ConfigSpace>
         </Sider>
       </Layout>
+      {/* HTML源码预览抽屉 */}
       <Drawer
-        title="源码预览"
-        placement="right"
+        title="HTML源码"
+        placement="left"
         width="800px"
         visible={viewCodeVisible}
         onClose={() => {
           setViewCodeVisible(false);
+          setMenuKey('1');
         }}
         extra={
-          <Button
-            icon={<UploadOutlined />}
-            onClick={() => {
-              exportHTML();
-            }}
-          >
+          <Button icon={<UploadOutlined />} onClick={exportHTML}>
             HTML导出
           </Button>
         }

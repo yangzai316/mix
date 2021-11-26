@@ -8,7 +8,7 @@ import {
 import Icon from '../common-components/icon';
 import { preView, exportJSON, exportHTML } from '../utils';
 
-const TopNav = ({ openViewCode }) => {
+const TopNav = () => {
   return (
     <div className="nav-top">
       <Button disabled icon={<DownloadOutlined />}>
@@ -16,15 +16,7 @@ const TopNav = ({ openViewCode }) => {
       </Button>
       &nbsp; &nbsp;
       <Button icon={<EyeOutlined />} onClick={preView}>
-        效果预览
-      </Button>
-      <Button
-        icon={<Icon fontSize="12">&#xe7ae;</Icon>}
-        onClick={() => {
-          openViewCode(true);
-        }}
-      >
-        &nbsp;源码预览
+        新页面预览效果
       </Button>
       &nbsp; &nbsp;
       <Button icon={<UploadOutlined />} onClick={exportJSON}>
