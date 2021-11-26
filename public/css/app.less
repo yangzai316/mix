@@ -22,14 +22,24 @@
 .work-space {
   width: 100%;
   height: 100%;
-  padding: 5%;
   background-color: #fff;
-  color: #666;
-  * {
-    border: 1px dotted #a0cfff;
+  .switch {
+    display: flex;
+    color: #409eff;
+    justify-content: right;
+    align-items: center;
+    padding: 0 20px;
+    height: 30px;
   }
-  *:hover {
-    border: 1px dashed #409eff;
+  #box {
+    height: calc(100% - 40px);
+    margin: 0 20px;
+    * {
+      border: 1px dotted #a0cfff;
+    }
+    *:hover {
+      border: 1px dashed #409eff;
+    }
   }
 }
 .config-top-title {
@@ -144,4 +154,8 @@
     height: 80px;
     border: 1px #ccc solid;
   }
+}
+.event-config-tip {
+  margin: 0;
+  color: #f56c6c;
 }

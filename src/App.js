@@ -32,7 +32,7 @@ const App = () => {
   }, []);
   // 被拖拽元素释放的元素容器
   const setContainer = useCallback((id) => {
-    if (!id) return message.error('这不是一个有效的视图容器');
+    if (!id) return message.error('这不是一个合法的容器（Not found id）');
     if (id === 'root') {
       targetTree.children.push(currentTarget);
     } else {
@@ -98,8 +98,10 @@ const App = () => {
   const [menuKey, setMenuKey] = useState('1');
   const onMenuSelect = useCallback((val) => {
     if (val.key === '3') {
+      // key = 3 则打开html源码
       setViewCodeVisible(true);
     } else {
+      // 切换menu
       setMenuKey(val.key);
     }
   });

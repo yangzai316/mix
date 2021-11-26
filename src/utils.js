@@ -209,3 +209,11 @@ export const createScriptStr = (id, eventName, eventContent, type) => {
   }
   return _;
 };
+
+/**
+ * 返回父节点的 id
+ */
+
+export const getParentId = (node) => {
+  return node?.parentNode?.dataset?.id;
+};

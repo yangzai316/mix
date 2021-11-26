@@ -59,6 +59,11 @@ const ELEMENTS = {
         type: 'Input',
         value: '0px',
       },
+      borderRadius: {
+        title: '边框圆角',
+        type: 'Input',
+        value: '0px',
+      },
     },
     layoutStyle: {
       display: {
@@ -133,18 +138,8 @@ const ELEMENTS = {
         type: 'Input',
         value: '0px',
       },
-      paddingTop: {
-        title: '内边距-上',
-        type: 'Input',
-        value: '0px',
-      },
-      paddingBottom: {
-        title: '-下',
-        type: 'Input',
-        value: '0px',
-      },
       paddingLeft: {
-        title: '-左',
+        title: '内边距-左',
         type: 'Input',
         value: '0px',
       },
@@ -240,6 +235,11 @@ const ELEMENTS = {
       },
       paddingRight: {
         title: '-右',
+        type: 'Input',
+        value: '0px',
+      },
+      borderRadius: {
+        title: '边框圆角',
         type: 'Input',
         value: '0px',
       },
