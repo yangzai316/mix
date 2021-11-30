@@ -224,6 +224,28 @@ const ATTRS = {
       name: '\ue601',
     },
   ],
+  overflow: [
+    {
+      title: '显示',
+      key: 'visible',
+      name: '\ue711',
+    },
+    {
+      title: '隐藏',
+      key: 'hidden',
+      name: '\ue6a2',
+    },
+    {
+      title: '滚动条',
+      key: 'scroll',
+      name: '\ue647',
+    },
+    {
+      title: '自动',
+      key: 'auto',
+      name: '\ue62e',
+    },
+  ],
 };
 
 export default ATTRS;

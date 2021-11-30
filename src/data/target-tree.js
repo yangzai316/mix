@@ -58,6 +58,11 @@ let targetTree = {
       type: 'Input',
       value: '0px',
     },
+    overflow: {
+      title: '内容溢出',
+      type: 'Radio',
+      value: 'visible',
+    },
   },
   layoutStyle: {
     display: {

@@ -1,6 +1,25 @@
 @import 'antd/dist/antd.dark.less'; // 引入官方提供的暗色 less 样式入口文件
 @import 'antd/dist/antd.compact.less'; // 引入官方提供的紧凑 less 样式入口文件
 
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_2956677_0ibk739z8wx.woff2?t=1638254325703')
+      format('woff2'),
+    url('//at.alicdn.com/t/font_2956677_0ibk739z8wx.woff?t=1638254325703')
+      format('woff'),
+    url('//at.alicdn.com/t/font_2956677_0ibk739z8wx.ttf?t=1638254325703')
+      format('truetype');
+}
+
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .element-space {
   display: flex;
   background-color: #000;
@@ -34,6 +53,8 @@
   #box {
     height: calc(100% - 40px);
     margin: 0 20px;
+  }
+  .dashed-helper {
     * {
       border: 1px dotted #a0cfff;
     }

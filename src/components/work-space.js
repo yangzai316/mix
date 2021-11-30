@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Switch } from 'antd';
 import { createElement, getParentId } from './../utils';
 /**
@@ -18,6 +18,11 @@ const WorkSpace = ({ tree, setContainer, focusCurrentComponent }) => {
     }
     setContainer(id, e.target.nodeName);
   };
+  // 是否开启虚线辅助
+  const [isNeedHelp, setIsNeedHelp] = useState(true);
+  const switchChange = (val) => {
+    setIsNeedHelp(val);
+  };
 
   // 生成 reactElement 元素
   const E = createElement(tree, focusCurrentComponent);
@@ -26,10 +31,15 @@ const WorkSpace = ({ tree, setContainer, focusCurrentComponent }) => {
     <div className="work-space">
       <div className="switch">
         虚线辅助&nbsp;
-        <Switch size="small" defaultChecked />
+        <Switch size="small" checked={isNeedHelp} onChange={switchChange} />
       </div>
 
-      <div id="box" onDragOver={dragOver} onDrop={drop}>
+      <div
+        id="box"
+        className={isNeedHelp ? 'dashed-helper' : ''}
+        onDragOver={dragOver}
+        onDrop={drop}
+      >
         {E}
       </div>
     </div>
