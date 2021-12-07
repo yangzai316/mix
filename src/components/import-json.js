@@ -8,18 +8,25 @@ const ImportJson = forwardRef(({updateView,setImportJsonVisible}, ref) => {
     updateView(JSON.parse(content));
     setImportJsonVisible(false)
   }; 
-  
+  const fileChange = (e) => {
+    const file = e.target.files[0];
+      var reader = new FileReader();
+      reader.readAsText(file, "utf8"); //gbk编码
+      reader.onload = function () {
+        setContent(this.result); // 文本内容
+      };
+  }; 
 	// 方法上升给父组件
 	useImperativeHandle(ref, () => ({
-    setJsonToOrigin
+    setJsonToOrigin,
+    fileChange
   }));
 
   return (
     <Input.TextArea 
       rows={30}
-      style={{ backgroundColor: '#fff', color: '#666' }}
       value={content}
-			placeholder="可手动输入JSON内容或点击右上角【JSON导入】获取本地json文件内容"
+			placeholder="可手动输入JSON内容或点击右上角【JSON导入】获取本地json文件内容，完成输入后点击【确定】即可"
       onChange={(e) => {
         setContent(e.target.value);
       }}

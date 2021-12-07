@@ -225,13 +225,21 @@ export const getParentId = (node) => {
 export const setMapFromNewTree = (tree) => {
   const o = {};
   o.root = tree;
-  tree?.children?.length && cycleTree(o,tree.children);
+  tree?.children?.length && cycleTree(o, tree.children);
   return o;
 };
 
-const cycleTree = (o,list) => {
+const cycleTree = (o, list) => {
   list.forEach((item) => {
     o[item.id] = item;
     item?.children?.length && cycleTree(item.children);
   });
+};
+
+/**
+ *   格式化 json 数据
+ */
+
+export const jsonCode = () => {
+  return JSON.stringify(origin, null, 4);
 };

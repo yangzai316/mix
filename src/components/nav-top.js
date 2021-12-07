@@ -8,9 +8,11 @@ import {
 import { preView, exportJSON, exportHTML } from '../utils';
 import HtmlCode from './html-code';
 import ImportJson from './import-json';
-import { origin } from './../data';
+import JsonCode from './json-code';
 
 const TopNav = ({ updateView }) => {
+  // code type
+  const [codeType, setCodeType] = useState('html');
   // html 代码预览
   const [htmlCodeViewVisible, setHtmlCodeViewVisible] = useState(false);
 
@@ -22,6 +24,10 @@ const TopNav = ({ updateView }) => {
 
   return (
     <div className="nav-top">
+      <Button icon={<EyeOutlined />} onClick={preView}>
+        新页面预览效果
+      </Button>
+      &nbsp; &nbsp;
       <Button
         icon={<UploadOutlined />}
         onClick={() => {
@@ -31,14 +37,11 @@ const TopNav = ({ updateView }) => {
         JSON导入
       </Button>
       &nbsp; &nbsp;
-      <Button icon={<EyeOutlined />} onClick={preView}>
-        新页面预览效果
-      </Button>
-      &nbsp; &nbsp;
       <Button
         icon={<EyeOutlined />}
         onClick={() => {
-          console.log(origin);
+          setCodeType('json');
+          setHtmlCodeViewVisible(true);
         }}
       >
         JSON预览
@@ -46,6 +49,7 @@ const TopNav = ({ updateView }) => {
       <Button
         icon={<EyeOutlined />}
         onClick={() => {
+          setCodeType('html');
           setHtmlCodeViewVisible(true);
         }}
       >
@@ -58,9 +62,9 @@ const TopNav = ({ updateView }) => {
       <Button icon={<DownloadOutlined />} onClick={exportHTML}>
         HTML下载
       </Button>
-      {/* HTML源码预览抽屉 */}
+      {/* HTML / JSON 源码预览抽屉 */}
       <Drawer
-        title="HTML源码"
+        title={`${codeType === 'json' ? 'JSON' : 'HTML'}预览`}
         placement="left"
         width="800px"
         visible={htmlCodeViewVisible}
@@ -68,12 +72,18 @@ const TopNav = ({ updateView }) => {
           setHtmlCodeViewVisible(false);
         }}
         extra={
-          <Button icon={<UploadOutlined />} onClick={exportHTML}>
-            HTML下载
-          </Button>
+          codeType === 'json' ? (
+            <Button icon={<DownloadOutlined />} onClick={exportJSON}>
+              JSON下载
+            </Button>
+          ) : (
+            <Button icon={<DownloadOutlined />} onClick={exportHTML}>
+              HTML下载
+            </Button>
+          )
         }
       >
-        <HtmlCode></HtmlCode>
+        {codeType === 'json' ? <JsonCode></JsonCode> : <HtmlCode></HtmlCode>}
       </Drawer>
       {/* JSON源码预览抽屉 */}
       <Drawer
@@ -86,9 +96,17 @@ const TopNav = ({ updateView }) => {
         }}
         extra={
           <>
-            <Button icon={<DownloadOutlined />} onClick={exportJSON}>
-              JSON导入
-            </Button>
+            <label htmlFor="xxx">
+              <span className="file-btn">导入本地json文件</span>
+              <input
+                id="xxx"
+                type="file"
+                style={{ display: 'none' }}
+                onChange={(e) => {
+                  ref?.current?.fileChange?.(e);
+                }}
+              />
+            </label>
             &nbsp; &nbsp;
             <Button
               type="primary"
