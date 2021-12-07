@@ -1,7 +1,6 @@
 import React from 'react';
 import SUB_ATTRS from './const/SUB_ATTRS_LIST';
-import targetTree from './data/target-tree';
-import targetMap from './data/target-map';
+import { origin } from './data';
 
 /**
  *
@@ -154,7 +153,7 @@ export const preView = () => {
  */
 export const htmlCode = () => {
   const content = document.getElementById('box').innerHTML;
-  const script = targetTree.script || '';
+  const script = origin.tree.script || '';
   return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MIX-预览</title></head>
     <body>${content}</body>
     <script>${script}</script>
@@ -166,12 +165,8 @@ export const htmlCode = () => {
  */
 
 export const exportJSON = () => {
-  const _ = {
-    tree:targetTree,
-    map:targetMap
-  };
   exportFile(
-    [JSON.stringify(_, null, 2)],
+    [JSON.stringify(origin.tree, null, 2)],
     'Mix',
     'application/json;charset=utf-8'
   );
@@ -190,7 +185,7 @@ const exportFile = (data, filename, contentType) => {
   a.download = filename;
 
   a.href = window.URL.createObjectURL(blob);
-``
+  ``;
   a.dataset.downloadurl = [contentType, a.download, a.href].join(':');
 
   let event = new MouseEvent('click', {});
@@ -221,4 +216,22 @@ export const createScriptStr = (id, eventName, eventContent, type) => {
 
 export const getParentId = (node) => {
   return node?.parentNode?.dataset?.id;
+};
+
+/**
+ * 递归遍历 tree 上 所有的key，将内容关联到 orgin.map 上
+ */
+
+export const setMapFromNewTree = (tree) => {
+  const o = {};
+  o.root = tree;
+  tree?.children?.length && cycleTree(o,tree.children);
+  return o;
+};
+
+const cycleTree = (o,list) => {
+  list.forEach((item) => {
+    o[item.id] = item;
+    item?.children?.length && cycleTree(item.children);
+  });
 };

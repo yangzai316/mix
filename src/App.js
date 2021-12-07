@@ -1,10 +1,9 @@
 import React, { useCallback, useState } from 'react';
 // antd
-import { Layout, message, Drawer, Button } from 'antd';
+import { Layout, message } from 'antd';
 const { Header, Sider, Content } = Layout;
 import './../public/css/app.less';
 // 自定义组件
-import { UploadOutlined } from '@ant-design/icons';
 import ElementSpace from './components/element-space';
 import WorkSpace from './components/work-space';
 import ConfigSpace from './components/config-space';
@@ -12,87 +11,92 @@ import MenuLeft from './components/menu-left';
 import TreeSpace from './components/tree-space';
 import TopNav from './components/nav-top';
 // 自定义 工具方法
-import { dealSpecificProperty, deleteComponentById,  } from './utils';
+import { dealSpecificProperty, deleteComponentById,setMapFromNewTree } from './utils';
 // 核心数据
-import targetMap from './data/target-map';
-import targetTree from './data/target-tree';
+import { origin } from './data';
 
 const App = () => {
   // 工作区 树形数据
-  const [tree, setTree] = useState(targetTree);
+  const [tree, setTree] = useState(origin.tree);
   // 当前被拖拽元素
-  const [target, setTarget] = useState(targetTree);
+  const [target, setTarget] = useState(origin.tree);
 
   // 当前被拖拽元素
   let currentTarget = null;
   const setTargetCb = useCallback((target) => {
-    targetMap[target.id] = target;
+    origin.map[target.id] = target;
     currentTarget = target;
   }, []);
   // 被拖拽元素释放的元素容器
   const setContainer = useCallback((id) => {
     if (!id) return message.error('这不是一个合法的容器（Not found id）');
     if (id === 'root') {
-      targetTree.children.push(currentTarget);
+      origin.tree.children.push(currentTarget);
     } else {
-      targetMap[id].children
-        ? targetMap[id].children.push(currentTarget)
-        : (targetMap[id].children = [currentTarget]);
+      origin.map[id].children
+        ? origin.map[id].children.push(currentTarget)
+        : (origin.map[id].children = [currentTarget]);
     }
     setTarget(currentTarget);
-    setTree(JSON.parse(JSON.stringify(targetTree)));
+    setTree(JSON.parse(JSON.stringify(origin.tree)));
   }, []);
 
   // 属性被修改的回调
   const editComponent = useCallback((id, type, key, value) => {
     if (!key) {
       // 设置 content script
-      targetMap[id][type] = value;
+      origin.map[id][type] = value;
     } else {
-      targetMap[id][type][key].value = value;
+      origin.map[id][type][key].value = value;
       if (key === 'display') {
         // 即是样式属性，又有关联的属性
-        targetMap[id][type] = {
-          ...targetMap[id][type],
+        origin.map[id][type] = {
+          ...origin.map[id][type],
           ...dealSpecificProperty(value),
         };
       }
     }
 
-    setTarget(targetMap[id]);
-    setTree(JSON.parse(JSON.stringify(targetTree)));
+    setTarget(origin.map[id]);
+    setTree(JSON.parse(JSON.stringify(origin.tree)));
   }, []);
 
   // 特殊样式逻辑处理 （background / border），自身不是样式属性，只有关联属性
   const editComponentSpecificProperty = useCallback((id, type, value) => {
-    targetMap[id][type] = dealSpecificProperty(value);
+    origin.map[id][type] = dealSpecificProperty(value);
 
-    setTarget(targetMap[id]);
-    setTree(JSON.parse(JSON.stringify(targetTree)));
+    setTarget(origin.map[id]);
+    setTree(JSON.parse(JSON.stringify(origin.tree)));
   }, []);
   // 移除 or  清空元素
   const removeComponent = useCallback((id, type) => {
     if (type === 'clear') {
       // 清空根组件下的所有节点
-      for (const key in targetMap) {
-        key !== 'root' && delete targetMap[key];
+      for (const key in origin.map) {
+        key !== 'root' && delete origin.map[key];
       }
-      targetTree.children = [];
-      setTree(JSON.parse(JSON.stringify(targetTree)));
+      origin.tree.children = [];
+      setTree(JSON.parse(JSON.stringify(origin.tree)));
     } else {
       // 删除当前的元素
-      delete targetMap[id];
-      deleteComponentById(targetTree, id);
-      setTree(JSON.parse(JSON.stringify(targetTree)));
+      delete origin.map[id];
+      deleteComponentById(origin.tree, id);
+      setTree(JSON.parse(JSON.stringify(origin.tree)));
     }
   });
 
   // 聚焦config 配置于当前元素，
   const focusCurrentComponent = useCallback((id) => {
-    setTarget(targetMap[id]);
+    setTarget(origin.map[id]);
   }, []);
 
-
+  // 全局更新视图 导入时效果
+  const updateView = (tree) => {
+    origin.tree = tree;
+    origin.map = setMapFromNewTree(tree);
+    setTarget(JSON.parse(JSON.stringify(tree)));
+    setTree(JSON.parse(JSON.stringify(tree)));
+  };
 
   // menu 改变
   const [menuKey, setMenuKey] = useState('1');
@@ -104,7 +108,7 @@ const App = () => {
     <Layout style={{ height: '100%' }}>
       <Header>
         {/* 头部nav组件 */}
-        <TopNav />
+        <TopNav updateView={updateView} />
       </Header>
       <Layout>
         {/* 左边Meun组件 */}
@@ -135,8 +139,6 @@ const App = () => {
           ></ConfigSpace>
         </Sider>
       </Layout>
-      
-      
     </Layout>
   );
 };

@@ -1,12 +1,14 @@
 import React, { useState, forwardRef,useImperativeHandle } from 'react';
 import { Input } from 'antd';
 
-const ImportJson = forwardRef((props, ref) => {
+const ImportJson = forwardRef(({updateView,setImportJsonVisible}, ref) => {
   const [content, setContent] = useState('');
-
+  // 将内容传给回调
   const setJsonToOrigin = () => {
-    console.log(JSON.parse(content));
+    updateView(JSON.parse(content));
+    setImportJsonVisible(false)
   }; 
+  
 	// 方法上升给父组件
 	useImperativeHandle(ref, () => ({
     setJsonToOrigin

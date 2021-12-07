@@ -8,8 +8,9 @@ import {
 import { preView, exportJSON, exportHTML } from '../utils';
 import HtmlCode from './html-code';
 import ImportJson from './import-json';
+import { origin } from './../data';
 
-const TopNav = () => {
+const TopNav = ({ updateView }) => {
   // html 代码预览
   const [htmlCodeViewVisible, setHtmlCodeViewVisible] = useState(false);
 
@@ -33,6 +34,15 @@ const TopNav = () => {
       <Button icon={<EyeOutlined />} onClick={preView}>
         新页面预览效果
       </Button>
+      &nbsp; &nbsp;
+      <Button
+        icon={<EyeOutlined />}
+        onClick={() => {
+          console.log(origin);
+        }}
+      >
+        JSON预览
+      </Button>
       <Button
         icon={<EyeOutlined />}
         onClick={() => {
@@ -48,7 +58,6 @@ const TopNav = () => {
       <Button icon={<DownloadOutlined />} onClick={exportHTML}>
         HTML下载
       </Button>
-      
       {/* HTML源码预览抽屉 */}
       <Drawer
         title="HTML源码"
@@ -79,16 +88,23 @@ const TopNav = () => {
           <>
             <Button icon={<DownloadOutlined />} onClick={exportJSON}>
               JSON导入
-            </Button>&nbsp; &nbsp;
-            <Button type="primary" onClick={()=>{
-              ref?.current?.setJsonToOrigin?.()
-            }}>
+            </Button>
+            &nbsp; &nbsp;
+            <Button
+              type="primary"
+              onClick={() => {
+                ref?.current?.setJsonToOrigin?.();
+              }}
+            >
               确定
             </Button>
           </>
         }
       >
-        <ImportJson ref={ref}></ImportJson>
+        <ImportJson
+          ref={ref}
+          {...{ updateView, setImportJsonVisible }}
+        ></ImportJson>
       </Drawer>
     </div>
   );
