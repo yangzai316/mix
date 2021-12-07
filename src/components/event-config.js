@@ -91,7 +91,7 @@ const EventConfig = ({ setEventConfig }) => {
       )}
       <br />
       <br />
-      <p className="event-config-tip">注意：事件效果无法在工作区预览</p>
+      <p className="event-config-tip">注意：事件无法在中间的工作区预览效果</p>
       <Button type="primary" block onClick={sure}>
         确定
       </Button>

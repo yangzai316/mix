@@ -1,7 +1,6 @@
 import React from 'react';
 import { Menu } from 'antd';
 import { ClusterOutlined, LayoutOutlined } from '@ant-design/icons';
-import Icon from '../common-components/icon';
 
 class MenuLeft extends React.Component {
   render() {
@@ -19,12 +18,6 @@ class MenuLeft extends React.Component {
         </Menu.Item>
         <Menu.Item key="2" icon={<ClusterOutlined />}>
           DOM结构
-        </Menu.Item>
-        <Menu.Item
-          key="3"
-          icon={<Icon fontSize="16">&#xe7ae;&nbsp;&nbsp;</Icon>}
-        >
-          HTML源码
         </Menu.Item>
       </Menu>
     );

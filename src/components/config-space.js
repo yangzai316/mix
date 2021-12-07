@@ -63,7 +63,7 @@ const ConfigSpace = ({
   return (
     <>
       <div className="config-top-title">
-        <h4>{`当前元素：${target.text}-${target.name}-${target.id}`}</h4>
+        <h4>{`当前元素：${target.text}/${target.name}/${target.id}`}</h4>
         {target.id === 'root' ? (
           <DeleteOutlined
             onClick={() => {

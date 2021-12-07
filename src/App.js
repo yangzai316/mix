@@ -11,9 +11,8 @@ import ConfigSpace from './components/config-space';
 import MenuLeft from './components/menu-left';
 import TreeSpace from './components/tree-space';
 import TopNav from './components/nav-top';
-import HtmlCode from './components/html-code';
 // 自定义 工具方法
-import { dealSpecificProperty, deleteComponentById, exportHTML } from './utils';
+import { dealSpecificProperty, deleteComponentById,  } from './utils';
 // 核心数据
 import targetMap from './data/target-map';
 import targetTree from './data/target-tree';
@@ -71,7 +70,6 @@ const App = () => {
     setTarget(targetMap[id]);
     setTree(JSON.parse(JSON.stringify(targetTree)));
   }, []);
-
   // 移除 or  清空元素
   const removeComponent = useCallback((id, type) => {
     if (type === 'clear') {
@@ -87,27 +85,21 @@ const App = () => {
       deleteComponentById(targetTree, id);
       setTree(JSON.parse(JSON.stringify(targetTree)));
     }
-    console.log(targetTree, targetMap);
   });
+
   // 聚焦config 配置于当前元素，
   const focusCurrentComponent = useCallback((id) => {
     setTarget(targetMap[id]);
   }, []);
 
+
+
   // menu 改变
   const [menuKey, setMenuKey] = useState('1');
   const onMenuSelect = useCallback((val) => {
-    if (val.key === '3') {
-      // key = 3 则打开html源码
-      setViewCodeVisible(true);
-    } else {
-      // 切换menu
-      setMenuKey(val.key);
-    }
+    // 切换menu
+    setMenuKey(val.key);
   });
-
-  // 源码预览效果，抽屉控制
-  const [viewCodeVisible, setViewCodeVisible] = useState(false);
   return (
     <Layout style={{ height: '100%' }}>
       <Header>
@@ -143,24 +135,8 @@ const App = () => {
           ></ConfigSpace>
         </Sider>
       </Layout>
-      {/* HTML源码预览抽屉 */}
-      <Drawer
-        title="HTML源码"
-        placement="left"
-        width="800px"
-        visible={viewCodeVisible}
-        onClose={() => {
-          setViewCodeVisible(false);
-          setMenuKey('1');
-        }}
-        extra={
-          <Button icon={<UploadOutlined />} onClick={exportHTML}>
-            HTML导出
-          </Button>
-        }
-      >
-        <HtmlCode></HtmlCode>
-      </Drawer>
+      
+      
     </Layout>
   );
 };

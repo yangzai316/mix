@@ -1,6 +1,7 @@
 import React from 'react';
 import SUB_ATTRS from './const/SUB_ATTRS_LIST';
 import targetTree from './data/target-tree';
+import targetMap from './data/target-map';
 
 /**
  *
@@ -164,28 +165,32 @@ export const htmlCode = () => {
  * 导出json / html 文件
  */
 
-export const exportJSON = (filename) => {
+export const exportJSON = () => {
+  const _ = {
+    tree:targetTree,
+    map:targetMap
+  };
   exportFile(
-    [JSON.stringify(targetTree, null, 2)],
-    filename,
+    [JSON.stringify(_, null, 2)],
+    'Mix',
     'application/json;charset=utf-8'
   );
 };
-export const exportHTML = (filename) => {
+export const exportHTML = () => {
   const data = htmlCode();
-  exportFile(data, filename, 'text/html;charset=utf-8');
+  exportFile(data, 'Mix', 'text/html;charset=utf-8');
 };
 
 /**
  * Blob 下载文件
  */
-const exportFile = (data, filename = 'MIX', contentType) => {
+const exportFile = (data, filename, contentType) => {
   let blob = new Blob([data], { type: contentType });
   const a = document.createElement('a');
   a.download = filename;
 
   a.href = window.URL.createObjectURL(blob);
-
+``
   a.dataset.downloadurl = [contentType, a.download, a.href].join(':');
 
   let event = new MouseEvent('click', {});
