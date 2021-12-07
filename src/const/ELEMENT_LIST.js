@@ -6,7 +6,6 @@
 const ELEMENTS = {
   div: {
     name: 'div',
-    id: 'root',
     text: '容器',
     baseStyle: {
       width: {
@@ -285,6 +284,117 @@ const ELEMENTS = {
         value: '',
       },
     },
+  },
+  input: {
+    name: 'input',
+    text: '单行输入框',
+    baseStyle: {
+      width: {
+        title: '宽度',
+        type: 'Input',
+        value: '200px',
+      },
+      height: {
+        title: '高度',
+        type: 'Input',
+        value: '32px',
+      },
+      fontSize: {
+        title: '字号',
+        type: 'Input',
+        value: '14px',
+      },
+      color: {
+        title: '颜色',
+        type: 'InputColor',
+        value: '#666666',
+      },
+      fontWeight: {
+        title: '加粗',
+        type: 'Radio',
+        value: 'normal',
+      },
+      marginTop: {
+        title: '外边距-上',
+        type: 'Input',
+        value: '0px',
+      },
+      marginBottom: {
+        title: '-下',
+        type: 'Input',
+        value: '0px',
+      },
+      marginLeft: {
+        title: '-左',
+        type: 'Input',
+        value: '0px',
+      },
+      marginRight: {
+        title: '-右',
+        type: 'Input',
+        value: '0px',
+      },
+      paddingTop: {
+        title: '内边距-上',
+        type: 'Input',
+        value: '0px',
+      },
+      paddingBottom: {
+        title: '-下',
+        type: 'Input',
+        value: '0px',
+      },
+      paddingLeft: {
+        title: '-左',
+        type: 'Input',
+        value: '0px',
+      },
+      paddingRight: {
+        title: '-右',
+        type: 'Input',
+        value: '0px',
+      },
+      borderRadius: {
+        title: '边框圆角',
+        type: 'Input',
+        value: '0px',
+      },
+    },
+    backgroundStyle: {},
+    borderStyle: {},
+    positionStyle: {
+      position: {
+        title: '定位',
+        type: 'Select',
+        value: 'static',
+      },
+      top: {
+        title: '位移-上',
+        type: 'Input',
+        value: '0px',
+      },
+      bottom: {
+        title: '-下',
+        type: 'Input',
+        value: '0px',
+      },
+      left: {
+        title: '-左',
+        type: 'Input',
+        value: '0px',
+      },
+      right: {
+        title: '-右',
+        type: 'Input',
+        value: '0px',
+      },
+      zIndex: {
+        title: '层叠顺序',
+        type: 'Input',
+        value: '0',
+      },
+    },
+    children: [],
   },
 };
 

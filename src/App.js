@@ -51,13 +51,13 @@ const App = () => {
       if (key === 'display') {
         // 即是样式属性，又有关联的属性
         origin.map[id][type] = {
-          ...origin.map[id][type],
+          [key]:origin.map[id][type][key],
           ...dealSpecificProperty(value),
         };
       }
     }
 
-    setTarget(origin.map[id]);
+    // setTarget(origin.map[id]);
     setTree(JSON.parse(JSON.stringify(origin.tree)));
   }, []);
 

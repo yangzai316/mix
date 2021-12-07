@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, Input, Form, Button, Select } from 'antd';
+import { Radio, Input, Form, Button, Select, notification } from 'antd';
 
 import EVENTS from '../const/EVENT_LIST';
 
@@ -25,13 +25,19 @@ const EventConfig = ({ setEventConfig }) => {
     let eventName = null;
     let eventContent = null;
     if (data.type === 2) {
+      // 处理 链接跳转情况：当作 onclick 处理
       eventName = 'onclick';
       eventContent = data.linkContent;
     } else if (data.type === 3) {
+      // 处理 自定义事件情况
       eventName = data.eventName;
       eventContent = data.eventContent;
     }
     setEventConfig(eventName, eventContent, data.type);
+    notification.success({
+      message: '事件设置成功',
+      duration: 2,
+    });
   };
 
   return (
@@ -91,10 +97,10 @@ const EventConfig = ({ setEventConfig }) => {
       )}
       <br />
       <br />
-      <p className="event-config-tip">注意：事件无法在中间的工作区预览效果</p>
       <Button type="primary" block onClick={sure}>
         确定
       </Button>
+      <p className="event-config-tip">注意：事件无法在中间的工作区预览效果</p>
     </>
   );
 };

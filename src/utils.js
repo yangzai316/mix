@@ -27,7 +27,7 @@ export const createElement = (tree, focusCurrentComponent) => {
         tree?.layoutStyle
       ),
       key: tree?.id,
-      ['data-id']: tree?.id,
+      id: tree?.id,
       onClick: (e) => {
         e.stopPropagation();
         click(tree?.id);
@@ -63,7 +63,7 @@ const createChildElement = (children, method) => {
         ),
         ...updateAttribute(item.attribute),
         key: item.id,
-        ['data-id']: item.id,
+        id: item.id,
         onClick: (e) => {
           e.stopPropagation();
           method(item.id);
@@ -115,10 +115,21 @@ export const updateAttribute = (data) => {
 
 /**
  *
- * 特殊属性，单独处理
+ * 特殊属性，单独处理 
+        flex
+        backgroundColor
+        backgroundImage
+        backgroundColor
+        borderSingle
+        borderRound
  */
 export const dealSpecificProperty = (value) => {
-  if (value) {
+  if (['flex',
+    'backgroundColor',
+    'backgroundImage',
+    'backgroundColor',
+    'borderSingle',
+    'borderRound'].includes(value)) {
     return JSON.parse(JSON.stringify(SUB_ATTRS[value]));
   }
   return {};
@@ -199,11 +210,11 @@ const exportFile = (data, filename, contentType) => {
 export const createScriptStr = (id, eventName, eventContent, type) => {
   let _ = '';
   if (type === 2) {
-    _ = `document.querySelector('[data-id=${id}]').${eventName}=function(){
+    _ = `document.querySelector('#${id}').${eventName}=function(){
        window.open('${eventContent}');
      }`;
   } else if (type === 3) {
-    _ = `document.querySelector('[data-id=${id}]').${eventName}=function(){
+    _ = `document.querySelector('#${id}').${eventName}=function(){
       ${eventContent}
      }`;
   }
@@ -215,7 +226,7 @@ export const createScriptStr = (id, eventName, eventContent, type) => {
  */
 
 export const getParentId = (node) => {
-  return node?.parentNode?.dataset?.id;
+  return node?.parentNode?.id;
 };
 
 /**

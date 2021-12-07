@@ -11,7 +11,7 @@ const WorkSpace = ({ tree, setContainer, focusCurrentComponent }) => {
   };
   const drop = (e) => {
     e.preventDefault();
-    let id = e.target.dataset.id;
+    let id = e.target.id;
     // img span 不作为容器使用，寻找并返回其上级的id
     if (e.target.nodeName !== 'DIV') {
       id = getParentId(e.target);

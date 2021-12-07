@@ -6,6 +6,7 @@ const TreeSpace = ({ tree }) => {
   return (
     <Tree
       defaultExpandAll
+      showLine
       switcherIcon={<DownOutlined />}
       treeData={[tree]}
       fieldNames={{ title: 'name', key: 'id' }}
